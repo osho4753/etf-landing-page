@@ -1,5 +1,5 @@
 import { saveContact, sendOverviewEmail } from "@/lib/brevo";
-import { overviewPath, parseLead } from "@/lib/lead";
+import { overviewPath, parseLead, submittedPath } from "@/lib/lead";
 
 async function readBody(request: Request): Promise<{ data: Record<string, unknown>; isForm: boolean }> {
   const type = request.headers.get("content-type") ?? "";
@@ -28,7 +28,7 @@ export async function POST(request: Request) {
   const lead = parsed.lead;
   const path = overviewPath(lead);
   const done = () =>
-    body.isForm ? Response.redirect(`${origin}${path}&odeslano=1`, 303) : Response.json({ ok: true, overview: path });
+    body.isForm ? Response.redirect(`${origin}${submittedPath(lead, request.headers.get("referer"))}`, 303) : Response.json({ ok: true, overview: path });
 
   if (lead.honeypot) return done();
 

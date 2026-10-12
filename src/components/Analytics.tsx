@@ -2,23 +2,22 @@
 
 import Script from "next/script";
 import { useEffect } from "react";
+import { pickUtm } from "@/lib/lead";
 import { flushQueue, setTrackContext, track } from "@/lib/track";
 import type { Variant } from "./LeadProvider";
-
-const UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"] as const;
 
 export function Analytics({ variant, page = "landing" }: { variant: Variant; page?: string }) {
   const websiteId = process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID;
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const utm: Record<string, string> = {};
-    for (const key of UTM_KEYS) {
-      const value = params.get(key);
-      if (value) utm[key] = value.slice(0, 60);
+    setTrackContext({ variant, page, ...pickUtm(params) });
+    if (page === "landing") track("landing", { referrer: document.referrer ? new URL(document.referrer).hostname : "direct" });
+    if (page === "overview" && params.get("odeslano") === "1") {
+      params.delete("odeslano");
+      window.history.replaceState(window.history.state, "", `${window.location.pathname}?${params.toString()}`);
+      track("lead_submit", { location: params.get("location") ?? "unknown", etf: params.get("etf") ?? "", flow: "redirect" });
     }
-    setTrackContext({ variant, page });
-    if (page === "landing") track("landing", { ...utm, referrer: document.referrer ? new URL(document.referrer).hostname : "direct" });
 
     if (page !== "landing") return;
     const marks = [25, 50, 75];

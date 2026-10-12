@@ -76,7 +76,7 @@ Testy (`npm test`) hlídají výpočet i to, že čísla v reklamách odpovídaj
 
 ## 6. Měření
 
-Umami Cloud, bez cookies. Všechny události nesou `variant` (a/b) a `page`; `landing` navíc UTM parametry a referrer.
+Umami Cloud, bez cookies. Všechny události nesou `variant` (a/b), `page` a UTM parametry z URL; `landing` navíc referrer.
 
 | Událost | Kdy vzniká |
 |---|---|
@@ -88,7 +88,7 @@ Umami Cloud, bez cookies. Všechny události nesou `variant` (a/b) a `page`; `la
 | `compare_interact` | výběr ETF ve srovnání nebo v kalkulačce, klik na justETF (`ticker`, `action`) |
 | `email_focus` | první focus do pole e-mail (`location`) |
 | `form_error` | chyba validace / sítě / PDF (`type`) |
-| `lead_submit` | úspěšné odeslání (`location`, `etf`) |
+| `lead_submit` | úspěšné uložení kontaktu, jednou na odeslání (`location`, `etf`, `flow`). `flow: inline` – formulář s JS, přehled se ukáže na stejné stránce. `flow: redirect` – formulář odeslaný bez JS nebo před hydratací; server přesměruje na `/prehled?…&odeslano=1` s variantou a UTM z refereru, událost odejde až tam a parametr `odeslano` se z URL odstraní, aby ji reload nezopakoval. |
 | `pdf_download` | stažení PDF |
 
 **Definice funnelu (Umami → Reports → Funnel, okno 30 minut).** Krok v Umami je URL nebo událost a nepodporuje „nebo“, proto dvě cesty a jedna souhrnná:
@@ -96,6 +96,8 @@ Umami Cloud, bez cookies. Všechny události nesou `variant` (a/b) a `page`; `la
 1. **Kalkulačka:** `landing` → `calc_interact` → `email_focus` → `lead_submit`
 2. **Srovnání:** `landing` → `compare_interact` → `email_focus` → `lead_submit`
 3. **Souhrn:** `landing` → `email_focus` → `lead_submit` → `pdf_download`
+
+**Poslední krok funnelu je `lead_submit`, ne zobrazení `/prehled`.** Při běžném odeslání s JS se na `/prehled` vůbec nepřechází (přehled se zobrazí na landing page), takže pageview `/prehled` by zachytil jen menšinovou cestu bez JS a navíc i otevření odkazu z e-mailu. `lead_submit` vzniká v obou cestách právě jednou a až po úspěšné odpovědi `/api/lead`; ověřuje `npm run e2e:lead` (Playwright zachytí požadavky na Umami `/api/send`).
 
 Konverze = `lead_submit` / `landing`. Varianty reklamy se porovnávají filtrem `variant` / `utm_content`. Do funnelu záměrně nebereme `calc_result_view`, protože interakci neprokazuje tak jednoznačně jako `calc_interact`.
 

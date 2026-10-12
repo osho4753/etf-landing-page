@@ -64,7 +64,7 @@ export function LeadForm({ location, compact = false }: { location: string; comp
         }),
       });
       if (!res.ok) throw new Error(String(res.status));
-      track("lead_submit", { location, etf });
+      track("lead_submit", { location, etf, flow: "inline" });
       setLead({ email, submittedAt: new Date().toISOString() });
       requestAnimationFrame(() => document.getElementById("prehled")?.scrollIntoView({ behavior: "smooth", block: "start" }));
     } catch (err) {

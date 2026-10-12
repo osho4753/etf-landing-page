@@ -10,6 +10,7 @@
     "test": "vitest run",
     "data": "node scripts/fetch-data.mjs",
     "e2e": "node scripts/e2e-flow.mjs",
+    "e2e:lead": "node scripts/e2e-lead-event.mjs",
     "ads": "node scripts/render-ads.mjs",
     "lighthouse": "node scripts/lighthouse.mjs"
   },

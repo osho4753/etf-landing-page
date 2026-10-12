@@ -17,7 +17,12 @@ async function Content({ searchParams }: { searchParams: Promise<Record<string, 
   const one = (k: string) => (Array.isArray(q[k]) ? q[k]?.[0] : q[k]);
   const input = sanitize({ initial: Number(one("v")), monthly: Number(one("m")), years: Number(one("r")), grossReturnPct: 6 });
   const etf = findFund(one("etf")).ticker;
-  return <Overview input={input} etf={etf} />;
+  return (
+    <>
+      <Overview input={input} etf={etf} />
+      <Analytics variant={one("variant") === "b" ? "b" : "a"} page="overview" />
+    </>
+  );
 }
 
 export default function OverviewPage({ searchParams }: PageProps<"/prehled">) {
@@ -32,7 +37,6 @@ export default function OverviewPage({ searchParams }: PageProps<"/prehled">) {
         </div>
       </main>
       <Footer />
-      <Analytics variant="a" page="overview" />
     </>
   );
 }

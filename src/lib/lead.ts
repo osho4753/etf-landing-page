@@ -51,3 +51,28 @@ export function overviewPath(lead: Pick<LeadPayload, "initial" | "monthly" | "ye
   });
   return `/prehled?${q.toString()}`;
 }
+
+export const UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"] as const;
+
+export function pickUtm(params: URLSearchParams) {
+  const utm: Record<string, string> = {};
+  for (const key of UTM_KEYS) {
+    const value = params.get(key);
+    if (value) utm[key] = value.slice(0, 60);
+  }
+  return utm;
+}
+
+function refererParams(referer: string | null) {
+  if (!referer || !URL.canParse(referer)) return new URLSearchParams();
+  return new URL(referer).searchParams;
+}
+
+export function submittedPath(lead: Pick<LeadPayload, "initial" | "monthly" | "years" | "etf" | "variant" | "location">, referer: string | null) {
+  const q = new URLSearchParams(overviewPath(lead).split("?")[1]);
+  q.set("odeslano", "1");
+  q.set("variant", lead.variant);
+  q.set("location", lead.location);
+  for (const [key, value] of Object.entries(pickUtm(refererParams(referer)))) q.set(key, value);
+  return `/prehled?${q.toString()}`;
+}
