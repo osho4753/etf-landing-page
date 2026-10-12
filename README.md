@@ -3,7 +3,7 @@
 Lead magnet pro českého drobného investora, který přichází z reklamy na Meta (mobil) a stránce věnuje pár sekund. Stránka okamžitě ukáže modelový rozdíl v nákladech mezi bankovním akciovým fondem a ETF, srovná 5 ETF z newyorské burzy s jejich evropskými (UCITS) verzemi a výměnou za e-mail nabídne **osobní přehled** (na stránce, v PDF a e-mailem).
 
 - **Repozitář:** https://github.com/osho4753/etf-landing-page
-- **Web:** _doplní se po nasazení na Vercel_
+- **Web:** https://etf-landing-page-three.vercel.app (varianta B: `?utm_content=b_compare`)
 - **Reklamy:** [ads/README.md](ads/README.md) (obrázky 1080 × 1350 + texty pro Meta)
 - **Zadání a plán s ověřenými fakty:** [docs/00-zadani.md](docs/00-zadani.md), [docs/01-plan.md](docs/01-plan.md)
 - **Export konverzace s Claude Code:** [ai-log/](ai-log/)
@@ -121,7 +121,15 @@ Kotva: Unbounce Conversion Benchmark Report (finance, aktualizace 25. 2. 2026) �
 
 ## 9. Kvalita
 
-- **Lighthouse mobil** (medián z 5 běhů na variantu, simulovaný mobil / pomalé 4G): **A – výkon 96, B – výkon 97; přístupnost, best practices a SEO 100**; všech 10 běhů 94–97. FCP 1,5 s, LCP 2,4 s, TBT 100–140 ms, CLS 0. Reporty: [docs/lighthouse/](docs/lighthouse/), spuštění `npm run lighthouse` (Umami je při měření blokované, aby test neznečistil data).
+- **Lighthouse mobil** (simulovaný mobil / pomalé 4G, Umami při měření blokované, aby test neznečistil data):
+
+  | | Výkon | Přístupnost | Best practices | SEO | LCP | CLS |
+  |---|---|---|---|---|---|---|
+  | Produkce (Vercel), A – medián ze 3 | 92 | 100 | 100 | 100 | 3,1 s | 0 |
+  | Produkce (Vercel), B – medián ze 3 | 90 | 100 | 100 | 100 | 3,1 s | 0 |
+  | Lokálně (`next start`), A / B – medián z 5 | 96 / 97 | 100 | 100 | 100 | 2,4 s | 0 |
+
+  Všechny produkční běhy 90–92, lokální 94–97. Reporty: [docs/lighthouse/produkce](docs/lighthouse/produkce/), [docs/lighthouse/lokalne](docs/lighthouse/lokalne/); spuštění `npm run lighthouse` (`BASE_URL=… OUT_DIR=…`).
 - **E2E** `npm run e2e` (Playwright, 390 px): průchod hero → kalkulačka → srovnání → chybový stav formuláře → odeslání → přehled → PDF; kontrola, že pasivní scroll nevyvolá události kalkulačky. Umami je blokované a `/api/lead` mockované. Screenshoty: [docs/screenshots/](docs/screenshots/).
 - **Bez JS:** hlavní texty, modelové číslo, srovnání i disclaimery jsou ve statickém HTML; formulář funguje klasickým POSTem.
 - **Bez cookies:** Umami ani stránka cookies nepoužívají, proto bez cookie lišty.
@@ -135,7 +143,7 @@ npm run dev                  # vývoj
 npm test                     # výpočet + čísla v reklamách
 npm run build && npx next start -p 3100
 npm run e2e                  # vyžaduje běžící server na :3100
-npm run lighthouse           # vyžaduje běžící server na :3100 a Chrome
+npm run lighthouse           # vyžaduje běžící server na :3100 (nebo BASE_URL) a Chrome
 npm run data                 # znovu stáhne data emitentů (vyžaduje pdftotext)
 npm run ads                  # vyrenderuje reklamy do PNG
 ```

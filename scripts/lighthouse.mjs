@@ -6,7 +6,7 @@ import { tmpdir } from "node:os";
 const BASE = process.env.BASE_URL ?? "http://localhost:3100";
 const RUNS = Number(process.env.RUNS ?? 3);
 const CHROME = process.env.CHROME_PATH ?? "C:/Program Files/Google/Chrome/Application/chrome.exe";
-const OUT = "docs/lighthouse";
+const OUT = process.env.OUT_DIR ?? "docs/lighthouse/lokalne";
 mkdirSync(OUT, { recursive: true });
 
 const pages = [
