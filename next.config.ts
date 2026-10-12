@@ -4,6 +4,9 @@ const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
   reactCompiler: true,
+  images: {
+    formats: ["image/avif", "image/webp"],
+  },
   experimental: {
     inlineCss: true,
   },

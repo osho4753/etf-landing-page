@@ -160,6 +160,10 @@ Kotva: Unbounce Conversion Benchmark Report (finance, aktualizace 25. 2. 2026) �
   - Nic v prvním viewportu se neanimuje a každý prvek se animuje jen jednou.
   - Bez JS i při `prefers-reduced-motion: reduce` je vše hned viditelné. Skrytí platí jen s třídou `reveal` na `<html>`, kterou přidává JS.
   - Výkon ani přístupnost se tím nezměnily (ověřeno: lokálně 96 / 100 s animací i bez ní).
+- **Fotka na pozadí** sekce „Proč to nejde“ (`public/img/back.avif`) jde přes `next/image`. Server vrací AVIF, nebo WebP podle prohlížeče, a obrázek se načítá líně (`loading="lazy"`).
+  - Překryv je `ink` (#0f2a22) s 88% krytím. Kontrast i nad nejsvětlejším místem fotky: nadpis a texty 7,1 : 1, zlatý nadpisek 5,8 : 1 (WCAG AA).
+  - Chrome stahuje líné obrázky už v okruhu zhruba 1 250 px pod obrazovkou. U varianty B se proto fotka stahovala už během načítání a LCP se zhoršil asi o 0,1 s. Fotka je pod překryvem vidět jen jako textura, proto má `sizes="50vw"` a na mobilu se stáhne verze 384 px (24 kB místo 53 kB).
+  - Lokálně, 5 běhů na stejném stroji: výkon s fotkou A 88, B 88, bez fotky 88 a 89, přístupnost 100 v obou případech. Rozdíl je v rozptylu jednotlivých běhů (87–89).
 - **Fonty** jsou podmnožiny Onest a Bricolage Grotesque (SIL Open Font License 1.1), zdroj a licence: [src/app/fonts/LICENSE.md](src/app/fonts/LICENSE.md).
 - **E2E** `npm run e2e` (Playwright, 390 px): průchod hero → kalkulačka → srovnání → chybový stav formuláře → odeslání → přehled → PDF; kontrola, že pasivní scroll nevyvolá události kalkulačky. Umami je blokované a `/api/lead` mockované. Screenshoty: [docs/screenshots/](docs/screenshots/).
 - **Bez JS:** hlavní texty, modelové číslo, srovnání i disclaimery jsou ve statickém HTML; formulář funguje klasickým POSTem.
