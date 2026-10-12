@@ -1,0 +1,84 @@
+{
+  "date": "2026-10-12T18:19:26.416Z",
+  "runs": 3,
+  "formFactor": "desktop",
+  "throttling": "simulate (Lighthouse desktop preset)",
+  "pages": {
+    "a": {
+      "url": "https://etf-landing-page-three.vercel.app/?utm_source=lighthouse&utm_content=a_fees",
+      "median": {
+        "scores": {
+          "performance": 100,
+          "accessibility": 100,
+          "best-practices": 100,
+          "seo": 100
+        },
+        "metrics": {
+          "first-contentful-paint": 486.725,
+          "largest-contentful-paint": 611.725,
+          "total-blocking-time": 0,
+          "cumulative-layout-shift": 0.0005496844504374313,
+          "speed-index": 486.725
+        }
+      },
+      "all": [
+        {
+          "performance": 100,
+          "accessibility": 100,
+          "best-practices": 100,
+          "seo": 100
+        },
+        {
+          "performance": 100,
+          "accessibility": 100,
+          "best-practices": 100,
+          "seo": 100
+        },
+        {
+          "performance": 100,
+          "accessibility": 100,
+          "best-practices": 100,
+          "seo": 100
+        }
+      ]
+    },
+    "b": {
+      "url": "https://etf-landing-page-three.vercel.app/?utm_source=lighthouse&utm_content=b_compare",
+      "median": {
+        "scores": {
+          "performance": 100,
+          "accessibility": 100,
+          "best-practices": 100,
+          "seo": 100
+        },
+        "metrics": {
+          "first-contentful-paint": 523.8745,
+          "largest-contentful-paint": 644.8745,
+          "total-blocking-time": 0,
+          "cumulative-layout-shift": 0.0001044853612043039,
+          "speed-index": 523.8745
+        }
+      },
+      "all": [
+        {
+          "performance": 100,
+          "accessibility": 100,
+          "best-practices": 100,
+          "seo": 100
+        },
+        {
+          "performance": 100,
+          "accessibility": 100,
+          "best-practices": 100,
+          "seo": 100
+        },
+        {
+          "performance": 100,
+          "accessibility": 100,
+          "best-practices": 100,
+          "seo": 100
+        }
+      ]
+    }
+  }
+}

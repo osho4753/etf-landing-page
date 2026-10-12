@@ -130,15 +130,37 @@ Kotva: Unbounce Conversion Benchmark Report (finance, aktualizace 25. 2. 2026) �
 
 ## 9. Kvalita
 
-- **Lighthouse mobil** (simulovaný mobil / pomalé 4G, Umami při měření blokované, aby test neznečistil data):
+- **Lighthouse – produkce po optimalizaci LCP (12. 10. 2026).** Měřeno Lighthouse 12 se simulovaným škrcením, stejně jako PageSpeed Insights. Mobil odpovídá Moto G Power na pomalém 4G, desktop presetu Lighthouse. Umami bylo při měření blokované, aby test neznečistil data. PageSpeed Insights se v den měření použít nedalo: API vracelo „Quota exceeded“ a web „Unable to resolve“.
 
-  | | Výkon | Přístupnost | Best practices | SEO | LCP | CLS |
-  |---|---|---|---|---|---|---|
-  | Produkce (Vercel), A – medián ze 3 | 92 | 100 | 100 | 100 | 3,1 s | 0 |
-  | Produkce (Vercel), B – medián ze 3 | 90 | 100 | 100 | 100 | 3,1 s | 0 |
-  | Lokálně (`next start`), A / B – medián z 5 | 96 / 97 | 100 | 100 | 100 | 2,4 s | 0 |
+  | Produkce (Vercel) | Výkon | Přístupnost | Best practices | SEO | FCP | LCP | TBT | CLS | Běhy (výkon) |
+  |---|---|---|---|---|---|---|---|---|---|
+  | **Mobil A** – medián z 5 | 93 | 100 | 100 | 100 | 1,7 s | 2,8 s | 70 ms | 0 | 92–94 |
+  | **Mobil B** – medián z 5 | 93 | 100 | 100 | 100 | 1,7 s | 2,8 s | 100 ms | 0 | 93 |
+  | **Desktop A** – medián ze 3 | 100 | 100 | 100 | 100 | 0,5 s | 0,6 s | 0 ms | 0 | 100 |
+  | **Desktop B** – medián ze 3 | 100 | 100 | 100 | 100 | 0,5 s | 0,6 s | 0 ms | 0 | 100 |
+  | *Mobil A / B před optimalizací* | *92 / 90* | *100* | *100* | *100* | *1,7 s* | *3,1 s* | *120 ms* | *0* | *90–92* |
+  | Lokálně (`next start`), mobil A / B – medián z 5 | 96 / 96 | 100 | 100 | 100 | 1,5 s | 2,6 s | 100–120 ms | 0 | 92–97 |
 
-  Všechny produkční běhy 90–92, lokální 94–97. Reporty: [docs/lighthouse/produkce](docs/lighthouse/produkce/), [docs/lighthouse/lokalne](docs/lighthouse/lokalne/); spuštění `npm run lighthouse` (`BASE_URL=… OUT_DIR=…`).
+  **LCP.** LCP prvkem je text v hero (nadpis, u A někdy odstavec pod ním).
+  - Co blokovalo první vykreslení:
+    - pět souborů fontů z Google Fonts (110 kB), z toho tři se prohlížeč dozvěděl až po stažení CSS (nadpisový font a symboly Onest kvůli znaku „→“),
+    - blokující CSS soubor.
+  - Opravy:
+    - vlastní podmnožiny fontů s češtinou a použitými symboly: Onest 27 kB a Bricolage 800 22 kB, oba přednačtené,
+    - CSS vložené přímo do HTML (`experimental.inlineCss`).
+  - Výsledek: LCP na produkci klesl z 3,1 s na 2,8 s.
+  - **Cíl pod 2,5 s splněný není.** Zbytek tvoří vyhodnocení JavaScriptu Reactu a Next.js (~160 kB), které Lighthouse započítá, když proběhne před prvním vykreslením.
+  - V produkčních trasách z mého prohlížeče se navíc první snímek ukazuje až kolem 2,2 s, přestože je stránka zpracovaná za 0,13 s a hlavní vlákno mezitím nic nedělá. Lokálně se to stalo jen ve 2 z 10 běhů. Je potřeba to ověřit v PageSpeed Insights.
+  - Vyzkoušel jsem a nepoužil:
+    - přednačtení nadpisového fontu z Google (LCP se zhoršil),
+    - `content-visibility` pro sekce pod ohybem (snížila přístupnost na 96, axe u přeskočených sekcí špatně určí pozadí).
+
+  Screenshoty: [mobil A](docs/lighthouse/screenshot-mobil-a.png), [mobil B](docs/lighthouse/screenshot-mobil-b.png), [desktop A](docs/lighthouse/screenshot-desktop-a.png), [desktop B](docs/lighthouse/screenshot-desktop-b.png). Reporty: [produkce mobil](docs/lighthouse/produkce/), [produkce desktop](docs/lighthouse/produkce-desktop/), [lokálně](docs/lighthouse/lokalne/). Spuštění: `npm run lighthouse` (`BASE_URL=… OUT_DIR=… FORM_FACTOR=desktop`).
+- **Animace.** Sekce a karty se při scrollu jemně odkryjí (prolnutí a posun o 16 px, 450 ms, karty po 80 ms), postará se o to `src/components/Reveal.tsx` a CSS v `globals.css`.
+  - Nic v prvním viewportu se neanimuje a každý prvek se animuje jen jednou.
+  - Bez JS i při `prefers-reduced-motion: reduce` je vše hned viditelné. Skrytí platí jen s třídou `reveal` na `<html>`, kterou přidává JS.
+  - Výkon ani přístupnost se tím nezměnily (ověřeno: lokálně 96 / 100 s animací i bez ní).
+- **Fonty** jsou podmnožiny Onest a Bricolage Grotesque (SIL Open Font License 1.1), zdroj a licence: [src/app/fonts/LICENSE.md](src/app/fonts/LICENSE.md).
 - **E2E** `npm run e2e` (Playwright, 390 px): průchod hero → kalkulačka → srovnání → chybový stav formuláře → odeslání → přehled → PDF; kontrola, že pasivní scroll nevyvolá události kalkulačky. Umami je blokované a `/api/lead` mockované. Screenshoty: [docs/screenshots/](docs/screenshots/).
 - **Bez JS:** hlavní texty, modelové číslo, srovnání i disclaimery jsou ve statickém HTML; formulář funguje klasickým POSTem.
 - **Bez cookies:** Umami ani stránka cookies nepoužívají, proto bez cookie lišty.
@@ -229,7 +251,7 @@ Celá stránka vznikla v Claude Code. Exporty konverzace jsou v [ai-log/](ai-log
 | Landing page se srovnáním ETF z NYSE pro českého drobného investora z mobilní reklamy | Web https://etf-landing-page-three.vercel.app. Srovnání 5 ETF z NYSE Arca ↔ UCITS (`src/components/Compare.tsx`). Návrh pro mobil 390 px, [screenshoty](docs/screenshots/). |
 | Lead magnet: hodnota výměnou za kontakt, optimalizace na kontakty | Kapitola 2 (Osobní přehled na stránce, v PDF a e-mailem). Formulář pod výsledkem, CTA na kartách srovnání, spodní lišta. |
 | Nepůsobit jako základní výstup od Claude, design a texty pro cílovou skupinu | Vlastní vizuál (tokeny v `src/app/globals.css`, fonty Bricolage Grotesque a Onest). Texty česky, psané pro cílovou skupinu z kapitoly 1. Dvě varianty podle reklamy (kapitola 3). |
-| Dá se zítra spustit reklama | Nasazeno, Lighthouse mobil 90–92 / 100 / 100 / 100 (kapitola 9). Měření funguje (kapitola 6). Reklamy s produkčními URL a UTM ([ads/README.md](ads/README.md)). Disclaimery a ochrana údajů (kapitola 11). |
+| Dá se zítra spustit reklama | Nasazeno, Lighthouse mobil 92–94 / 100 / 100 / 100, desktop 100 (kapitola 9). Měření funguje (kapitola 6). Reklamy s produkčními URL a UTM ([ads/README.md](ads/README.md)). Disclaimery a ochrana údajů (kapitola 11). |
 | Určit cílovou skupinu | Kapitola 1 |
 | Co návštěvník dostane za kontakt a kdy o něj žádáme. Hodnota zřejmá před formulářem | Kapitola 2. Modelové číslo je v hero bez scrollování a kalkulačka i srovnání jsou bez formuláře. |
 | Dvě verze reklamy | [ads/](ads/): `reklama-a-poplatky.png`, `reklama-b-srovnani.png` (1080 × 1350) a texty pro Meta v [ads/README.md](ads/README.md) |

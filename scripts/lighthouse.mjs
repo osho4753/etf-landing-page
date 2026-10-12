@@ -7,13 +7,14 @@ const BASE = process.env.BASE_URL ?? "http://localhost:3100";
 const RUNS = Number(process.env.RUNS ?? 3);
 const CHROME = process.env.CHROME_PATH ?? "C:/Program Files/Google/Chrome/Application/chrome.exe";
 const OUT = process.env.OUT_DIR ?? "docs/lighthouse/lokalne";
+const FORM = process.env.FORM_FACTOR === "desktop" ? "desktop" : "mobile";
 mkdirSync(OUT, { recursive: true });
 
 const pages = [
   ["a", `${BASE}/?utm_source=lighthouse&utm_content=a_fees`],
   ["b", `${BASE}/?utm_source=lighthouse&utm_content=b_compare`],
 ];
-const summary = { date: new Date().toISOString(), runs: RUNS, formFactor: "mobile", throttling: "simulate (Lighthouse default: Moto G Power, slow 4G)", pages: {} };
+const summary = { date: new Date().toISOString(), runs: RUNS, formFactor: FORM, throttling: FORM === "desktop" ? "simulate (Lighthouse desktop preset)" : "simulate (Lighthouse default: Moto G Power, slow 4G)", pages: {} };
 
 for (const [name, url] of pages) {
   const runs = [];
@@ -27,7 +28,7 @@ for (const [name, url] of pages) {
         url,
         `--chrome-path=${CHROME}`,
         "--chrome-flags=--headless=new",
-        "--form-factor=mobile",
+        ...(FORM === "desktop" ? ["--preset=desktop"] : ["--form-factor=mobile"]),
         "--only-categories=performance,accessibility,best-practices,seo",
         "--blocked-url-patterns=*cloud.umami.is*",
         "--output=json",
