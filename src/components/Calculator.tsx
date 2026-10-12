@@ -25,17 +25,22 @@ export function Calculator() {
   const resultRef = useRef<HTMLParagraphElement>(null);
   const fund = findFund(etf);
 
+  const interacted = useRef(false);
+  const visible = useRef(false);
+
+  function reportResultView() {
+    if (interacted.current && visible.current) trackOnce("calc_result_view");
+  }
+
   useEffect(() => {
     const el = resultRef.current;
     if (!el || typeof IntersectionObserver === "undefined") return;
     let timer: ReturnType<typeof setTimeout> | undefined;
     const io = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          timer = setTimeout(() => trackOnce("calc_result_view"), 1000);
-        } else if (timer) {
-          clearTimeout(timer);
-        }
+        visible.current = entry.isIntersecting;
+        if (timer) clearTimeout(timer);
+        if (entry.isIntersecting) timer = setTimeout(reportResultView, 1000);
       },
       { threshold: 1 },
     );
@@ -51,7 +56,11 @@ export function Calculator() {
     const limit = LIMITS[key];
     const next = { ...input, [key]: Math.min(limit.max, Math.max(limit.min, Number.isFinite(value) ? value : 0)) };
     setInput(next);
-    trackOnce("calc_interact", { field: key });
+    if (!interacted.current) {
+      interacted.current = true;
+      trackOnce("calc_interact", { field: key });
+      setTimeout(reportResultView, 1000);
+    }
   }
 
   return (

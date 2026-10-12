@@ -184,8 +184,8 @@ export function Footer() {
           slouží jen k identifikaci, s emitenty nemáme žádný vztah.
         </p>
         <p>
-          <a href="/zasady" className="underline">
-            Zásady zpracování osobních údajů
+          <a href="/ochrana-udaju" className="underline">
+            Ochrana osobních údajů
           </a>{" "}
           · Stránka nepoužívá cookies.
         </p>

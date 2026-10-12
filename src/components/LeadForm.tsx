@@ -38,7 +38,7 @@ export function LeadForm({ location, compact = false }: { location: string; comp
       return;
     }
     if (!consent) {
-      setError("Bez souhlasu vám přehled nemůžeme poslat. Zaškrtněte ho prosím.");
+      setError("Pro zaslání přehledu prosím potvrďte první políčko.");
       setStatus("error");
       track("form_error", { type: "consent_missing", location });
       return;
@@ -122,15 +122,15 @@ export function LeadForm({ location, compact = false }: { location: string; comp
       <label className="flex items-start gap-2.5 text-xs leading-snug text-ink-soft">
         <input type="checkbox" name="consent" required className="mt-0.5 h-5 w-5 shrink-0 accent-pine" />
         <span>
-          Souhlasím se zpracováním e-mailu za účelem zaslání přehledu.{" "}
-          <a href="/zasady" className="underline">
-            Zásady
+          Beru na vědomí zpracování e-mailu pro zaslání přehledu.{" "}
+          <a href="/ochrana-udaju" className="underline">
+            Ochrana údajů
           </a>
         </span>
       </label>
       <label className="flex items-start gap-2.5 text-xs leading-snug text-ink-soft">
         <input type="checkbox" name="marketing" className="mt-0.5 h-5 w-5 shrink-0 accent-pine" />
-        <span>Občas mi pošlete tip k investování (nepovinné, odhlásíte jedním klikem).</span>
+        <span>Nepovinné: souhlasím se zasíláním občasných tipů k investování. Souhlas můžu kdykoli odvolat.</span>
       </label>
       <button
         type="submit"

@@ -7,10 +7,16 @@ mkdirSync(OUT, { recursive: true });
 
 const browser = await chromium.launch();
 const context = await browser.newContext({ ...devices["iPhone 14"], viewport: { width: 390, height: 844 } });
+await context.route("**/cloud.umami.is/**", (route) => route.abort());
+const leadRequests = [];
+await context.route("**/api/lead", async (route) => {
+  leadRequests.push(JSON.parse(route.request().postData() ?? "{}"));
+  await route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ ok: true, overview: "/prehled" }) });
+});
 const page = await context.newPage();
 const errors = [];
 page.on("pageerror", (e) => errors.push(e.message));
-page.on("console", (m) => m.type() === "error" && errors.push(m.text()));
+page.on("console", (m) => m.type() === "error" && !m.text().includes("ERR_FAILED") && errors.push(m.text()));
 
 const events = () => page.evaluate(() => (window.__trustoneQueue ?? []).map(([n, d]) => ({ name: n, ...d })));
 
@@ -54,5 +60,16 @@ await pageB.goto(`${BASE}/?utm_source=meta&utm_content=b_compare`, { waitUntil: 
 await pageB.screenshot({ path: `${OUT}/07-b-hero.png` });
 const bEvents = await pageB.evaluate(() => (window.__trustoneQueue ?? []).map(([n, d]) => ({ name: n, ...d })));
 
-console.log(JSON.stringify({ errors, flowEvents, bEvents }, null, 2));
+const passive = await context.newPage();
+await passive.goto(`${BASE}/`, { waitUntil: "networkidle" });
+for (let y = 0; y < 12; y++) {
+  await passive.mouse.wheel(0, 700);
+  await passive.waitForTimeout(400);
+}
+await passive.locator("#kalkulacka").scrollIntoViewIfNeeded();
+await passive.waitForTimeout(1500);
+const passiveEvents = await passive.evaluate(() => (window.__trustoneQueue ?? []).map(([n]) => n));
+const passiveOk = !passiveEvents.includes("calc_result_view") && !passiveEvents.includes("calc_interact");
+
+console.log(JSON.stringify({ errors, leadRequests: leadRequests.map(({ email, ...rest }) => ({ email: email ? "…" : "", ...rest })), passiveOk, passiveEvents, flowEvents, bEvents }, null, 2));
 await browser.close();
