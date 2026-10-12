@@ -6,7 +6,7 @@ import { TAX_RULES } from "@/content/overview";
 export function SectionTitle({ eyebrow, title, lead, id }: { eyebrow: string; title: string; lead?: string; id: string }) {
   return (
     <header className="mb-6 max-w-2xl">
-      <p className="text-sm font-semibold uppercase tracking-wider text-mint">{eyebrow}</p>
+      <p className="text-sm font-semibold uppercase tracking-wider text-mint-ink">{eyebrow}</p>
       <h2 id={id} className="mt-1 font-display text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl">
         {title}
       </h2>

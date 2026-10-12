@@ -13,7 +13,7 @@ export function Overview({ input, etf, email }: { input: CalcInput; etf: string;
   return (
     <article className="grid gap-6">
       <header>
-        <p className="text-sm font-semibold uppercase tracking-wider text-mint">Osobní přehled · modelový výpočet</p>
+        <p className="text-sm font-semibold uppercase tracking-wider text-mint-ink">Osobní přehled · modelový výpočet</p>
         <h2 className="mt-1 font-display text-3xl font-extrabold leading-tight sm:text-4xl">Váš přehled je připravený</h2>
         {email && (
           <p className="mt-2 text-ink-soft">

@@ -22,7 +22,7 @@ export function HeroFees() {
       <Header />
       <div className="mt-6 grid gap-6 md:mt-12 md:grid-cols-2 md:items-center md:gap-10">
         <div>
-          <p className="text-sm font-semibold uppercase tracking-wider text-mint">Kalkulačka poplatků</p>
+          <p className="text-sm font-semibold uppercase tracking-wider text-mint-ink">Kalkulačka poplatků</p>
           <h1 id="hero-title" className="mt-2 font-display text-[2.15rem] font-extrabold leading-[1.05] tracking-tight sm:text-5xl">
             Kolik vám za 20 let sní poplatky fondu?
           </h1>
@@ -83,7 +83,7 @@ export function HeroCompare() {
       <Header />
       <div className="mt-6 grid gap-6 md:mt-12 md:grid-cols-2 md:items-center md:gap-10">
         <div>
-          <p className="text-sm font-semibold uppercase tracking-wider text-mint">Srovnání ETF · data k {formatDate(performanceAsOf)}</p>
+          <p className="text-sm font-semibold uppercase tracking-wider text-mint-ink">Srovnání ETF · data k {formatDate(performanceAsOf)}</p>
           <h1 id="hero-title" className="mt-2 font-display text-[2.15rem] font-extrabold leading-[1.05] tracking-tight sm:text-5xl">
             VOO, SPY, nebo VT? Tohle z Česka opravdu koupíte.
           </h1>

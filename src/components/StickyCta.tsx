@@ -32,7 +32,7 @@ export function StickyCta() {
   return (
     <div
       className={`fixed inset-x-0 bottom-0 z-20 border-t border-line bg-paper/95 px-4 py-3 backdrop-blur transition-transform md:hidden ${visible ? "translate-y-0" : "translate-y-full"}`}
-      aria-hidden={!visible}
+      inert={!visible}
     >
       <CtaLink href="#formular" location="sticky" className="flex h-12 items-center justify-center rounded-xl bg-pine text-base font-bold text-white">
         Osobní přehled zdarma →
