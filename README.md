@@ -6,7 +6,8 @@ Lead magnet pro českého drobného investora, který přichází z reklamy na M
 - **Web:** https://etf-landing-page-three.vercel.app (varianta B: `?utm_content=b_compare`)
 - **Reklamy:** [ads/README.md](ads/README.md) (obrázky 1080 × 1350 + texty pro Meta)
 - **Zadání a plán s ověřenými fakty:** [docs/00-zadani.md](docs/00-zadani.md), [docs/01-plan.md](docs/01-plan.md)
-- **Export konverzace s Claude Code:** [ai-log/](ai-log/)
+- **Export konverzace s Claude Code:** [ai-log/](ai-log/) (`/export` a úplný export, viz [ai-log/README.md](ai-log/README.md))
+- **Kontrola proti zadání:** [kapitola 14](#14-kontrola-proti-zadání)
 
 TrustOne je fiktivní značka. Nevydává se za banku ani brokera a na stránce, v PDF i v reklamách je uvedeno, že nejde o investiční doporučení.
 
@@ -91,15 +92,15 @@ Umami Cloud, bez cookies. Všechny události nesou `variant` (a/b), `page` a UTM
 | `lead_submit` | úspěšné uložení kontaktu, jednou na odeslání (`location`, `etf`, `flow`). `flow: inline` – formulář s JS, přehled se ukáže na stejné stránce. `flow: redirect` – formulář odeslaný bez JS nebo před hydratací; server přesměruje na `/prehled?…&odeslano=1` s variantou a UTM z refereru, událost odejde až tam a parametr `odeslano` se z URL odstraní, aby ji reload nezopakoval. |
 | `pdf_download` | stažení PDF |
 
-**Definice funnelu (Umami → Reports → Funnel, okno 30 minut).** Krok v Umami je URL nebo událost a nepodporuje „nebo“, proto dvě cesty a jedna souhrnná:
+**Definice funnelu (Umami → Reports → Funnel, okno 30 minut).** Krok v Umami je URL nebo událost a nepodporuje „nebo“, proto dvě cesty a jedna souhrnná. Prvním krokem je **návštěva stránky `/`** (pageview, který Umami zaznamená automaticky). Pokrývá obě varianty: variantu B obsluhuje `src/proxy.ts` přepsáním (rewrite), takže v prohlížeči i v Umami zůstává adresa `/`. Událost `landing` slouží k rozpadu podle UTM a refereru, ne jako krok funnelu.
 
-1. **Kalkulačka:** `landing` → `calc_interact` → `email_focus` → `lead_submit`
-2. **Srovnání:** `landing` → `compare_interact` → `email_focus` → `lead_submit`
-3. **Souhrn:** `landing` → `email_focus` → `lead_submit` → `pdf_download`
+1. **Kalkulačka:** návštěva `/` → `calc_interact` → `email_focus` → `lead_submit`
+2. **Srovnání:** návštěva `/` → `compare_interact` → `email_focus` → `lead_submit`
+3. **Souhrn:** návštěva `/` → `email_focus` → `lead_submit` → `pdf_download`
 
 **Poslední krok funnelu je `lead_submit`, ne zobrazení `/prehled`.** Při běžném odeslání s JS se na `/prehled` vůbec nepřechází (přehled se zobrazí na landing page), takže pageview `/prehled` by zachytil jen menšinovou cestu bez JS a navíc i otevření odkazu z e-mailu. `lead_submit` vzniká v obou cestách právě jednou a až po úspěšné odpovědi `/api/lead`; ověřuje `npm run e2e:lead` (Playwright zachytí požadavky na Umami `/api/send`).
 
-Konverze = `lead_submit` / `landing`. Varianty reklamy se porovnávají filtrem `variant` / `utm_content`. Do funnelu záměrně nebereme `calc_result_view`, protože interakci neprokazuje tak jednoznačně jako `calc_interact`.
+Konverze = `lead_submit` / návštěvy `/`. Varianty reklamy se porovnávají filtrem `variant` / `utm_content`. Do funnelu záměrně nebereme `calc_result_view`, protože interakci neprokazuje tak jednoznačně jako `calc_interact`.
 
 **Funnel v Umami na produkci (kalkulačková cesta):**
 
@@ -113,7 +114,7 @@ Kotva: Unbounce Conversion Benchmark Report (finance, aktualizace 25. 2. 2026) �
 
 | Krok | z předchozího | ze 100 návštěv |
 |---|---|---|
-| Příchod (`landing`) | – | 100 |
+| Příchod (návštěva `/`) | – | 100 |
 | Zůstane / scroll 25 % | 60 % | 60 |
 | Vlastní výpočet nebo interakce se srovnáním | 70 % | 42 |
 | Focus do e-mailu | 30 % | 12,6 |
@@ -161,3 +162,99 @@ V Brevo je potřeba vytvořit seznam a atributy kontaktu uvedené v kapitole 5 a
 ## 11. Právní minimum
 
 „Nejde o investiční doporučení“ v hero, pod kalkulačkou, v přehledu, PDF, reklamách i patičce; upozornění, že minulá ani modelová výkonnost nezaručuje budoucí výnosy; stránka [Ochrana osobních údajů](src/app/ochrana-udaju/page.tsx); zdroje dat s datem u tabulky, grafu i v samostatné sekci. Právní posouzení skutečným právníkem je mimo rozsah tohoto testu.
+
+## 12. Chyby a zjištění při testování
+
+| Zjištění | Jak se přišlo | Oprava |
+|---|---|---|
+| **Ztráta `lead_submit` a UTM při odeslání bez JS.** Na pomalém mobilu může návštěvník odeslat formulář dřív, než se načte JavaScript (před hydratací). Formulář pak odejde klasickým POSTem a server přesměruje na `/prehled`. Tam se `lead_submit` vůbec neodeslal, UTM parametry se ztratily a stránka měla natvrdo variantu `a`. Takový lead ve funnelu chyběl a nešel přiřadit k reklamě. | Revize měření pro cestu odeslání bez JS. | Server při přesměrování přidá do URL `odeslano=1`, variantu, místo formuláře a UTM převzaté z refereru (`submittedPath` v `src/lib/lead.ts`). `/prehled` pak odešle `lead_submit` s `flow: redirect` a správnou variantou. Parametr `odeslano` se z URL hned odstraní, aby reload událost nezopakoval. Cesta s JS posílá `flow: inline`. Ověřují unit testy (`src/lib/lead.test.ts`) a `npm run e2e:lead` (zachycené požadavky na Umami). |
+| `calc_result_view` vznikala bez interakce: modelový výsledek je vidět už při načtení. | Seznam událostí z e2e průchodu. | Událost vzniká až po `calc_interact`. Funnel stojí na `calc_interact`. E2e kontroluje, že pasivní scroll nic nevyvolá. |
+| Posunuté sloupce výkonnosti u SPY. | Porovnání s VOO (stejný index) při ověřování dat. | Data se berou jen ze surových zdrojů emitentů (`npm run data`), ne ze sumarizací. |
+| Číslo v reklamě nesedělo s výpočtem (poměr 69,5 % místo 69,6 %). | Test `src/lib/ads.test.ts`. | Opravena reklama i test. Test teď hlídá čísla v reklamách proti datům. |
+| PDF zalamovalo „3 %“ přes řádek. | Kontrola vyrenderované strany PDF (screenshot [08-pdf-strana1.png](docs/screenshots/08-pdf-strana1.png)). | Nezlomitelná mezera před „%“. Font Onest s českou diakritikou je v PDF vložený. |
+| Lighthouse zpočátku: výkon A 70 / B 87, přístupnost 93, SEO u B 63. | `npm run lighthouse`. | Kontrast barvy (token `mint-ink`), `inert` místo `aria-hidden` u spodní lišty, favicon, canonical místo `noindex` u `/b`, menší načítání nadpisového fontu. Výsledek je v kapitole 9. |
+| E2e běh proti lokálnímu serveru s reálnými klíči poslal testovací kontakt do Brevo a události do Umami. | Kontrola dat po testu. | E2e testy blokují Umami a `/api/lead` mockují. Test `e2e:lead` zachytává požadavky na Umami a nepouští je ven. |
+| Produkce na Vercelu vracela 404. Canonical by ukazoval na `localhost`. | Ověření po prvním nasazení. | `vercel.json` s `framework: nextjs`. Canonical se bere z produkční domény Vercelu. |
+
+## 13. Práce s AI
+
+Celá stránka vznikla v Claude Code. Exporty konverzace jsou v [ai-log/](ai-log/), popis obou souborů je v [ai-log/README.md](ai-log/README.md).
+
+**Pokyny**
+- Zadání je uložené beze změny ([docs/00-zadani.md](docs/00-zadani.md)).
+- Prvním krokem byl jen plán s ověřením faktů ([docs/01-plan.md](docs/01-plan.md)). Fakta jsou v plánu označená jako OVĚŘENO / ČÁSTEČNĚ / PŘEDPOKLAD / OTÁZKA. Bez schválení plánu agent nic neinstaloval a nepsal kód.
+- Po schválení dostal agent 8 rozhodnutí:
+  - stack,
+  - lead magnet jako „Osobní přehled“ (žádné „kupte X“),
+  - nejmenovat brokery,
+  - pravidlo pro výběr bankovního fondu (Top Stocks jen s KID z roku 2026, jinak ČSOB),
+  - formát reklam,
+  - práce s Brevo,
+  - tajné klíče (agent je nikdy nevypisuje),
+  - data jen ze surových zdrojů emitentů.
+- Další pravidla průběžně:
+  - každý commit musí projít buildem a hned se pushnout,
+  - GDPR (povinné jen potvrzení zpracování, marketing jako samostatné nepovinné políčko),
+  - funnel postavený na skutečné interakci,
+  - ověřená diakritika v PDF,
+  - zastavení před nasazením.
+
+**Kontrola výstupu**
+- Testy výpočtu a čísel v reklamách (`npm test`).
+- E2e průchod na 390 px s kontrolou seznamu událostí.
+- Lighthouse lokálně i na produkci.
+- Vyrenderovaná strana PDF.
+- Screenshoty obou reklam a mobilní verze, které před pokračováním schválil člověk.
+- Ruční ověření produkčních URL s UTM.
+
+**Chyby agenta, které kontrola zachytila**
+- Převzal výstup automatického sumarizátoru s posunutými sloupci výkonnosti SPY. Opraveno přechodem na surová data.
+- Napsal tvrzení bez zdroje. Všechna byla odstraněna:
+  - „KID v češtině“ u každého fondu,
+  - „UCITS verze mají nižší náklady“ (ve skutečnosti mají mírně vyšší TER),
+  - obchodní hodiny Xetry,
+  - název společnosti Brevo,
+  - tvrzení o IP adresách v Umami,
+  - daňové tvrzení o akumulaci.
+- Nastavil `calc_result_view` tak, že vznikala bez interakce.
+- Spustil e2e proti reálnému `/api/lead`, což vytvořilo testovací kontakt.
+- Přehlédl ztrátu `lead_submit` při odeslání bez JS (kapitola 12).
+- `vercel link` mu bez upozornění přidal závislost a změnil `.gitignore`. Vráceno.
+- Při úpravách textu několikrát rozbil escape sekvence nezlomitelných mezer.
+
+## 14. Kontrola proti zadání
+
+| Požadavek ze zadání ([docs/00-zadani.md](docs/00-zadani.md)) | Kde je splněn |
+|---|---|
+| Landing page se srovnáním ETF z NYSE pro českého drobného investora z mobilní reklamy | Web https://etf-landing-page-three.vercel.app. Srovnání 5 ETF z NYSE Arca ↔ UCITS (`src/components/Compare.tsx`). Návrh pro mobil 390 px, [screenshoty](docs/screenshots/). |
+| Lead magnet: hodnota výměnou za kontakt, optimalizace na kontakty | Kapitola 2 (Osobní přehled na stránce, v PDF a e-mailem). Formulář pod výsledkem, CTA na kartách srovnání, spodní lišta. |
+| Nepůsobit jako základní výstup od Claude, design a texty pro cílovou skupinu | Vlastní vizuál (tokeny v `src/app/globals.css`, fonty Bricolage Grotesque a Onest). Texty česky, psané pro cílovou skupinu z kapitoly 1. Dvě varianty podle reklamy (kapitola 3). |
+| Dá se zítra spustit reklama | Nasazeno, Lighthouse mobil 90–92 / 100 / 100 / 100 (kapitola 9). Měření funguje (kapitola 6). Reklamy s produkčními URL a UTM ([ads/README.md](ads/README.md)). Disclaimery a ochrana údajů (kapitola 11). |
+| Určit cílovou skupinu | Kapitola 1 |
+| Co návštěvník dostane za kontakt a kdy o něj žádáme. Hodnota zřejmá před formulářem | Kapitola 2. Modelové číslo je v hero bez scrollování a kalkulačka i srovnání jsou bez formuláře. |
+| Dvě verze reklamy | [ads/](ads/): `reklama-a-poplatky.png`, `reklama-b-srovnani.png` (1080 × 1350) a texty pro Meta v [ads/README.md](ads/README.md) |
+| První obrazovka navazuje na slib reklamy | Kapitola 3: hero A a hero B, přepínání podle `utm_content` v `src/proxy.ts` |
+| Interaktivní prvky vedou ke kontaktu | Kalkulačka s formulářem pod výsledkem. Srovnání s tlačítkem „Přehled pro X → Y“, které předvybere ETF (kapitola 2). |
+| Co nejméně polí ve formuláři | Jedno pole (e-mail) a povinné potvrzení zpracování. Marketing je nepovinný (kapitola 2). |
+| Co dostane po odeslání | Přehled hned na stránce, PDF s diakritikou a e-mail přes Brevo (kapitola 2, [08-pdf-strana1.png](docs/screenshots/08-pdf-strana1.png)) |
+| Skutečná data se zdrojem | Kapitola 4. `data/etf.json` a `data/fees.json` (URL zdroje, datum a poznámka u každé hodnoty), na stránce „stav k …“ a sekce Zdroje. |
+| Měřit cestu od příchodu po odeslání | Kapitola 6: události, definice funnelu a [screenshot funnelu](docs/screenshots/umami-funnel.png) (jen testovací průchody) |
+| README: zdůvodnění pořadí sekcí | Kapitola 3 |
+| README: očekávaná konverze | Kapitola 7 (zdroj Unbounce 2026, rozpad funnelu po krocích) |
+| README: 3 hypotézy A/B seřazené podle dopadu | Kapitola 8 |
+| Nasazení na bezplatný hosting | Vercel: https://etf-landing-page-three.vercel.app |
+| Veřejný repozitář na GitHubu | https://github.com/osho4753/etf-landing-page |
+| V repozitáři výsledek, obě reklamy, kód s průběžnou historií commitů | Kód v `src/`, reklamy v `ads/`. Historie má desítky malých commitů a každý projde buildem. |
+| `ai-log/` s exportem konverzací (`/export`) | [ai-log/](ai-log/): export přes `/export` a úplný export (kapitola 13) |
+
+**Kontrola obsahu README:**
+- odkaz na web (úvod),
+- cílová skupina (kapitola 1),
+- co návštěvník dostane a kdy žádáme kontakt (kapitola 2),
+- zdůvodnění pořadí sekcí (kapitola 3),
+- zdroje dat s daty (kapitola 4),
+- měření a funnel (kapitola 6),
+- očekávaná konverze se zdrojem a rozpadem funnelu (kapitola 7),
+- 3 hypotézy A/B seřazené podle dopadu (kapitola 8),
+- obě reklamy (úvod, [ads/](ads/)),
+- práce s AI: pokyny, kontrola výstupu, chyby agenta (kapitola 13).
