@@ -69,7 +69,7 @@ async function exchanges() {
   const body = await text(url);
   const map = {};
   for (const line of body.split(/\r?\n/)) {
-    const [sym, name, exch] = line.split("|");
+    const [sym, , exch] = line.split("|");
     if (["SPY", "IVV", "VOO", "VT", "VWO"].includes(sym)) {
       map[sym] = exch;
       evidence.push({ label: `exchange ${sym}`, url, excerpt: line });
