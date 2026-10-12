@@ -15,7 +15,7 @@ export function SectionTitle({ eyebrow, title, lead, id, onDark = false }: { eye
   );
 }
 
-export function KidExplainer({ onDark = false }: { onDark?: boolean }) {
+export function KidExplainer() {
   const ters = funds.map((f) => f.ucits.ter);
   const terRange = `${formatTer(Math.min(...ters))}–${formatTer(Math.max(...ters))}`;
   return (
@@ -37,13 +37,13 @@ export function KidExplainer({ onDark = false }: { onDark?: boolean }) {
           d: `Vanguard, iShares i SPDR mají irské (UCITS) fondy na stejný nebo podobný index. Mají KID, takže je evropský broker nabídnout smí. Roční náklady: ${terRange}.`,
         },
       ].map((s) => (
-        <div key={s.n} data-reveal className="rounded-3xl bg-card p-5 text-ink">
+        <div key={s.n} data-reveal className="rounded-3xl bg-card p-5">
           <p className="font-display text-4xl font-extrabold text-gold">{s.n}</p>
           <h3 className="mt-2 font-display text-xl font-extrabold">{s.t}</h3>
           <p className="mt-1.5 text-ink-soft">{s.d}</p>
         </div>
       ))}
-      <p className={`text-xs md:col-span-3 ${onDark ? "text-paper/85" : "text-ink-soft"}`}>
+      <p className="text-xs text-ink-soft md:col-span-3">
         Zdroj: ČNB, stanovisko RS2018-12 k nařízení PRIIPs (čl. 13 odst. 1 – KID se poskytuje v dostatečném předstihu před uzavřením smlouvy; při české propagaci v
         češtině).{" "}
         <a className="underline" href="https://www.cnb.cz/cs/dohled-financni-trh/legislativni-zakladna/stanoviska-k-regulaci-financniho-trhu/RS2018-12" target="_blank" rel="noopener noreferrer">
@@ -108,7 +108,7 @@ export function Faq() {
   return (
     <div className="grid gap-2">
       {items.map((i) => (
-        <details key={i.q} data-reveal className="group rounded-2xl bg-card p-4 open:pb-5">
+        <details key={i.q} data-reveal className="group rounded-2xl bg-card p-4 text-ink open:pb-5">
           <summary className="flex cursor-pointer list-none items-center justify-between gap-3 font-semibold">
             {i.q}
             <span aria-hidden className="text-xl text-pine transition group-open:rotate-45">

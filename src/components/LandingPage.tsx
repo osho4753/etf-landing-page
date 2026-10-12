@@ -43,9 +43,9 @@ function CalculatorBand() {
 function CompareBand() {
   return (
     <>
-      <Band id="proc" tone="photo">
-        <SectionTitle id="proc-title" eyebrow="Proč to nejde" title="Proč VOO nebo SPY z Česka většinou nekoupíte" onDark />
-        <KidExplainer onDark />
+      <Band id="proc">
+        <SectionTitle id="proc-title" eyebrow="Proč to nejde" title="Proč VOO nebo SPY z Česka většinou nekoupíte" />
+        <KidExplainer />
       </Band>
       <Band id="srovnani" tone="white">
         <SectionTitle
@@ -86,8 +86,8 @@ export function LandingPage({ variant }: { variant: Variant }) {
           />
           <PlanPreview />
         </Band>
-        <Band id="faq" tone="white">
-          <SectionTitle id="faq-title" eyebrow="Časté otázky" title="Než se rozhodnete" />
+        <Band id="faq" tone="photo">
+          <SectionTitle id="faq-title" eyebrow="Časté otázky" title="Než se rozhodnete" onDark />
           <Faq />
         </Band>
         <Band id="zdroje">
