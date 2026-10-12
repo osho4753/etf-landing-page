@@ -14,8 +14,12 @@ const body = Onest({
   subsets: ["latin", "latin-ext"],
 });
 
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "http://localhost:3000");
+
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
+  metadataBase: new URL(siteUrl),
   title: "TrustOne – kolik stojí poplatky a které ETF z Česka koupíte",
   description:
     "Spočítejte si, kolik za 20 let zaplatíte na poplatcích v bankovním fondu a v ETF. Srovnání 5 ETF z newyorské burzy a jejich evropských verzí.",
