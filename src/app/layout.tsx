@@ -1,17 +1,21 @@
 import type { Metadata, Viewport } from "next";
-import { Bricolage_Grotesque, Onest } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
-const display = Bricolage_Grotesque({
+const display = localFont({
+  src: "./fonts/bricolage-cs-800.woff2",
   variable: "--font-display-face",
-  subsets: ["latin", "latin-ext"],
-  weight: ["800"],
-  preload: false,
+  weight: "800",
+  display: "swap",
+  fallback: ["Arial", "sans-serif"],
 });
 
-const body = Onest({
+const body = localFont({
+  src: "./fonts/onest-cs.woff2",
   variable: "--font-body",
-  subsets: ["latin", "latin-ext"],
+  weight: "400 800",
+  display: "swap",
+  fallback: ["Arial", "sans-serif"],
 });
 
 const siteUrl =

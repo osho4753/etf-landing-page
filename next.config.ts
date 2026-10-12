@@ -4,6 +4,9 @@ const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
   reactCompiler: true,
+  experimental: {
+    inlineCss: true,
+  },
   async redirects() {
     return [{ source: "/zasady", destination: "/ochrana-udaju", permanent: true }];
   },
