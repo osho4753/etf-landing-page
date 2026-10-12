@@ -101,6 +101,12 @@ Umami Cloud, bez cookies. Všechny události nesou `variant` (a/b), `page` a UTM
 
 Konverze = `lead_submit` / `landing`. Varianty reklamy se porovnávají filtrem `variant` / `utm_content`. Do funnelu záměrně nebereme `calc_result_view`, protože interakci neprokazuje tak jednoznačně jako `calc_interact`.
 
+**Funnel v Umami na produkci (kalkulačková cesta):**
+
+![Funnel v Umami: / → calc_interact → email_focus → lead_submit](docs/screenshots/umami-funnel.png)
+
+> **Pozor: nejde o reálný provoz.** Screenshot zachycuje jen mé vlastní testovací průchody (6 návštěv), žádné návštěvníky z reklamy. Čísla v něm (např. 50 % na `lead_submit`) proto o konverzi nic neříkají. Screenshot dokládá jen to, že měření funguje od příchodu na stránku až po odeslání formuláře. Očekávaná konverze je odhad v [kapitole 7](#7-očekávaná-konverze).
+
 ## 7. Očekávaná konverze
 
 Kotva: Unbounce Conversion Benchmark Report (finance, aktualizace 25. 2. 2026) – medián finančních služeb 8,3 %, podkategorie investic 3,9 %, placené sociální sítě ve financích 9,3 %; ve financích konvertuje mobil lépe než desktop. Naše výhody: jedno pole, hodnota před formulářem, message match. Nevýhody: studený provoz, neznámá značka.
