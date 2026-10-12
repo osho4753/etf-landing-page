@@ -36,20 +36,6 @@ body {
   outline-offset: 2px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  html.reveal [data-reveal][data-revealed] {
-    transition:
-      opacity 450ms ease-out,
-      transform 450ms ease-out;
-    transition-delay: var(--reveal-delay, 0ms);
-  }
-
-  html.reveal [data-reveal]:not([data-revealed]) {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
