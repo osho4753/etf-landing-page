@@ -9,7 +9,7 @@ import { ThankYou } from "./ThankYou";
 
 function Band({ id, tone = "paper", children }: { id: string; tone?: "paper" | "white"; children: React.ReactNode }) {
   return (
-    <section id={id} aria-labelledby={`${id}-title`} className={`scroll-mt-4 [content-visibility:auto] [contain-intrinsic-size:auto_900px] ${tone === "white" ? "bg-card/60" : ""}`}>
+    <section id={id} aria-labelledby={`${id}-title`} className={`scroll-mt-4 ${tone === "white" ? "bg-card/60" : ""}`}>
       <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6 sm:py-16">{children}</div>
     </section>
   );
