@@ -13,7 +13,7 @@ function Band({ id, tone = "paper", children }: { id: string; tone?: "paper" | "
   if (tone === "photo") {
     return (
       <section id={id} aria-labelledby={`${id}-title`} className="relative isolate scroll-mt-4 overflow-hidden bg-ink text-paper">
-        <Image src="/img/back.avif" alt="" fill sizes="50vw" loading="lazy" className="-z-20 object-cover" />
+        <Image src="/img/back.jpg" alt="" fill sizes="50vw" loading="lazy" className="-z-20 object-cover" />
         <div aria-hidden className="absolute inset-0 -z-10 bg-ink/88" />
         <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6 sm:py-16">{children}</div>
       </section>

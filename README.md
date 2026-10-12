@@ -160,7 +160,7 @@ Kotva: Unbounce Conversion Benchmark Report (finance, aktualizace 25. 2. 2026) �
   - Nic v prvním viewportu se neanimuje a každý prvek se animuje jen jednou.
   - Bez JS i při `prefers-reduced-motion: reduce` je vše hned viditelné. Skrytí platí jen s třídou `reveal` na `<html>`, kterou přidává JS.
   - Výkon ani přístupnost se tím nezměnily (ověřeno: lokálně 96 / 100 s animací i bez ní).
-- **Fotka na pozadí** sekce „Proč to nejde“ (`public/img/back.avif`) jde přes `next/image`. Server vrací AVIF, nebo WebP podle prohlížeče, a obrázek se načítá líně (`loading="lazy"`).
+- **Fotka na pozadí** sekce „Proč to nejde“ (`public/img/back.jpg`) jde přes `next/image`. Původní AVIF jsem převedl na JPG, protože Vercel zdrojové AVIF neoptimalizuje a posílal je celé (130 kB). Server vrací AVIF, nebo WebP podle prohlížeče, a obrázek se načítá líně (`loading="lazy"`).
   - Překryv je `ink` (#0f2a22) s 88% krytím. Kontrast i nad nejsvětlejším místem fotky: nadpis a texty 7,1 : 1, zlatý nadpisek 5,8 : 1 (WCAG AA).
   - Chrome stahuje líné obrázky už v okruhu zhruba 1 250 px pod obrazovkou. U varianty B se proto fotka stahovala už během načítání a LCP se zhoršil asi o 0,1 s. Fotka je pod překryvem vidět jen jako textura, proto má `sizes="50vw"` a na mobilu se stáhne verze 384 px (24 kB místo 53 kB).
   - Lokálně, 5 běhů na stejném stroji: výkon s fotkou A 88, B 88, bez fotky 88 a 89, přístupnost 100 v obou případech. Rozdíl je v rozptylu jednotlivých běhů (87–89).
