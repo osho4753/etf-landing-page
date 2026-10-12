@@ -92,7 +92,7 @@ Umami Cloud, bez cookies. Všechny události nesou `variant` (a/b), `page` a UTM
 | `lead_submit` | úspěšné uložení kontaktu, jednou na odeslání (`location`, `etf`, `flow`). `flow: inline` – formulář s JS, přehled se ukáže na stejné stránce. `flow: redirect` – formulář odeslaný bez JS nebo před hydratací; server přesměruje na `/prehled?…&odeslano=1` s variantou a UTM z refereru, událost odejde až tam a parametr `odeslano` se z URL odstraní, aby ji reload nezopakoval. |
 | `pdf_download` | stažení PDF |
 
-**Definice funnelu (Umami → Reports → Funnel, okno 30 minut).** Krok v Umami je URL nebo událost a nepodporuje „nebo“, proto dvě cesty a jedna souhrnná. Prvním krokem je **návštěva stránky `/`** (pageview, který Umami zaznamená automaticky). Pokrývá obě varianty: variantu B obsluhuje `src/proxy.ts` přepsáním (rewrite), takže v prohlížeči i v Umami zůstává adresa `/`. Událost `landing` slouží k rozpadu podle UTM a refereru, ne jako krok funnelu.
+**Definice funnelu (Umami → Reports → Funnel, okno 60 minut).** Krok v Umami je URL nebo událost a nepodporuje „nebo“, proto dvě cesty a jedna souhrnná. Prvním krokem je **návštěva stránky `/`** (pageview, který Umami zaznamená automaticky). Pokrývá obě varianty: variantu B obsluhuje `src/proxy.ts` přepsáním (rewrite), takže v prohlížeči i v Umami zůstává adresa `/`. Událost `landing` slouží k rozpadu podle UTM a refereru, ne jako krok funnelu.
 
 1. **Kalkulačka:** návštěva `/` → `calc_interact` → `email_focus` → `lead_submit`
 2. **Srovnání:** návštěva `/` → `compare_interact` → `email_focus` → `lead_submit`
