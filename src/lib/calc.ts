@@ -88,7 +88,7 @@ export function compare(raw: Partial<CalcInput>, bank: CostModel, etf: CostModel
 const czk = new Intl.NumberFormat("cs-CZ", { maximumFractionDigits: 0 });
 
 export function formatCzk(value: number) {
-  return `${czk.format(Math.round(value))} Kč`;
+  return `${czk.format(Math.round(value))}\u00a0Kč`;
 }
 
 export function roundForDisplay(value: number) {

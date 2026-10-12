@@ -56,7 +56,7 @@ export function formatDate(iso: string) {
 }
 
 export function formatPct(value: number, digits = 2) {
-  return `${value.toLocaleString("cs-CZ", { minimumFractionDigits: digits, maximumFractionDigits: Math.max(digits, 4) })} %`;
+  return `${value.toLocaleString("cs-CZ", { minimumFractionDigits: digits, maximumFractionDigits: Math.max(digits, 4) })}\u00a0%`;
 }
 
 export function formatTer(value: number) {

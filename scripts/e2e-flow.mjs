@@ -6,7 +6,7 @@ const OUT = process.env.OUT_DIR ?? "screenshots";
 mkdirSync(OUT, { recursive: true });
 
 const browser = await chromium.launch();
-const context = await browser.newContext({ ...devices["iPhone 14"], viewport: { width: 390, height: 844 } });
+const context = await browser.newContext({ acceptDownloads: true, ...devices["iPhone 14"], viewport: { width: 390, height: 844 } });
 await context.route("**/cloud.umami.is/**", (route) => route.abort());
 const leadRequests = [];
 await context.route("**/api/lead", async (route) => {
@@ -51,7 +51,13 @@ await form.getByRole("button", { name: "Chci přehled zdarma" }).click();
 await page.locator("#prehled").waitFor({ timeout: 10000 });
 await page.waitForTimeout(800);
 await page.screenshot({ path: `${OUT}/05-a-podekovani.png` });
-await page.screenshot({ path: `${OUT}/06-a-cela-stranka.png`, fullPage: true });
+
+const [download] = await Promise.all([
+  page.waitForEvent("download"),
+  page.getByRole("button", { name: "Stáhnout přehled v PDF" }).click(),
+]);
+await download.saveAs(`${OUT}/prehled.pdf`);
+await page.waitForTimeout(300);
 
 const flowEvents = await events();
 

@@ -10,5 +10,5 @@ export const BUY_STEPS = [
 export const TAX_RULES = [
   "Prodej po více než 3 letech držení je osvobozen od daně z příjmů (časový test, § 4 odst. 1 písm. u) zákona o daních z příjmů).",
   "Osvobozené jsou i prodeje, jejichž úhrn příjmů za rok nepřesáhne 100 000 Kč (§ 4 odst. 1 písm. t)) – počítá se příjem z prodeje, ne zisk.",
-  "Akumulační ETF dividendy nevyplácí, ale reinvestuje uvnitř fondu – nemusíte je proto každý rok danit v přiznání.",
+  "Akumulační ETF dividendy nevyplácí, ale reinvestuje je uvnitř fondu – nevzniká vám tak každoroční příjem z dividend.",
 ];
