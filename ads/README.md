@@ -13,7 +13,7 @@ Obrázky se generují z HTML šablon: `npm run ads` (výstup `reklama-a-poplatky
 | Nadpis | Spočítejte si, kolik stojí poplatky |
 | Popis | Kalkulačka s daty z KID a od emitentů |
 | Tlačítko | Zjistit více |
-| URL | `https://<doména>/?utm_source=meta&utm_medium=paid_social&utm_campaign=etf_leadgen&utm_content=a_fees` |
+| URL | `https://etf-landing-page-three.vercel.app/?utm_source=meta&utm_medium=paid_social&utm_campaign=etf_leadgen&utm_content=a_fees` |
 
 **Navazující první obrazovka:** nadpis „Kolik vám za 20 let sní poplatky fondu?“ a stejný modelový příklad (≈ 505 000 Kč, zaokrouhleno v reklamě dolů na ≈ 500 000 Kč) s předpoklady pod číslem.
 
@@ -27,7 +27,7 @@ Obrázky se generují z HTML šablon: `npm run ads` (výstup `reklama-a-poplatky
 | Nadpis | VOO, SPY, nebo VT? Co z Česka opravdu koupíte |
 | Popis | Srovnání 5 ETF a jejich evropských verzí |
 | Tlačítko | Zjistit více |
-| URL | `https://<doména>/?utm_source=meta&utm_medium=paid_social&utm_campaign=etf_leadgen&utm_content=b_compare` |
+| URL | `https://etf-landing-page-three.vercel.app/?utm_source=meta&utm_medium=paid_social&utm_campaign=etf_leadgen&utm_content=b_compare` |
 
 **Navazující první obrazovka:** varianta `/b` (proxy přepne podle `utm_content` začínajícího na `b`) – stejné tři dvojice tickerů a TER jako v reklamě.
 
