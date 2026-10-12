@@ -5,7 +5,8 @@ import "./globals.css";
 const display = Bricolage_Grotesque({
   variable: "--font-display-face",
   subsets: ["latin", "latin-ext"],
-  weight: ["600", "800"],
+  weight: ["800"],
+  preload: false,
 });
 
 const body = Onest({
