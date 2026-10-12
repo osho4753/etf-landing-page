@@ -1,0 +1,30 @@
+{
+  "snapshotDate": "2026-10-12",
+  "bankFund": {
+    "id": "csob-akciovy-zodpovedny",
+    "name": "ČSOB Akciový zodpovědný",
+    "manager": "ČSOB Asset Management, a.s., investiční společnost",
+    "isin": "CZ0008477098",
+    "entry": 3,
+    "ongoing": 2.65,
+    "transaction": 0.42,
+    "recommendedHoldingYears": 8,
+    "kidDate": "2026-06-01",
+    "pdfSha256": "0e932a70fcc176617038b8cc38f560ccd7ec8f3d0a2c664b776f641ec90efcfb",
+    "source": {
+      "url": "https://multimediafiles.kbcgroup.eu/ng/feed/am/funds/KID/KID_CZ0008477098_CS.PDF",
+      "retrieved": "2026-10-12",
+      "note": "Sdělení klíčových informací (PRIIPs KID), oddíl Skladba nákladů"
+    },
+    "note": "Výchozí srovnání. Aktuální KID fondu Top Stocks (Erste/ČS) z roku 2026 nebyl veřejně dohledatelný, proto podle rozhodnutí v README používáme tento fond. Ve výpočtu: vstupní poplatek z každého vkladu + průběžné náklady ročně. Transakční náklady do výpočtu nezahrnujeme (konzervativně)."
+  },
+  "etfSide": {
+    "brokerCostPerDeposit": 0.5,
+    "note": "Předpoklad, ne údaj konkrétního brokera: 0,5 % z každého vkladu na konverzi měny a poplatky. Neuvádíme konkrétní brokery (dostupnost neověřena)."
+  },
+  "assumptions": {
+    "grossReturn": 6,
+    "note": "Modelový roční výnos před náklady 6 % p. a. – stejný pro obě varianty, aby rozdíl ukazoval jen vliv nákladů. Nejde o predikci ani slib výnosu."
+  },
+  "defaultEtf": "IVV"
+}

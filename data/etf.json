@@ -1,0 +1,260 @@
+{
+  "snapshotDate": "2026-10-12",
+  "note": "Čísla načtena skriptem scripts/fetch-data.mjs ze surových dat emitentů (HTML, JSON API, PDF). Důkazní výňatky v data/raw/evidence.json.",
+  "funds": [
+    {
+      "ticker": "VOO",
+      "name": "Vanguard S&P 500 ETF",
+      "issuer": "Vanguard",
+      "index": "S&P 500",
+      "exchange": "NYSE Arca",
+      "exchangeSource": {
+        "url": "https://www.nasdaqtrader.com/dynamic/SymDir/otherlisted.txt",
+        "retrieved": "2026-10-12",
+        "note": "Oficiální adresář Nasdaq Trader, soubor ze dne 2026-10-12; sloupec Exchange: P = NYSE Arca"
+      },
+      "ter": 0.03,
+      "aum": {
+        "value": 1000000000000,
+        "currency": "USD",
+        "asOf": "2026-08-31",
+        "scope": "třída ETF"
+      },
+      "returnsNav": {
+        "y1": 15.7,
+        "y3": 22.85,
+        "y5": 13.75,
+        "y10": 15.29,
+        "asOf": "2026-09-30"
+      },
+      "source": {
+        "url": "https://investor.vanguard.com/investment-products/etfs/profile/voo",
+        "retrieved": "2026-10-12",
+        "note": "Data z JSON API stránky emitenta: https://investor.vanguard.com/vmf/api/VOO/profile, /performance, /characteristic"
+      },
+      "ucits": {
+        "ticker": "VUAA",
+        "isin": "IE00BFMXXD54",
+        "name": "Vanguard S&P 500 UCITS ETF (USD) Accumulating",
+        "index": "S&P 500",
+        "distribution": "akumulační",
+        "domicile": "Irsko",
+        "ter": 0.07,
+        "aum": {
+          "value": 35852000000,
+          "currency": "USD",
+          "asOf": "2026-08-31",
+          "scope": "třída fondu"
+        },
+        "source": {
+          "url": "https://fund-docs.vanguard.com/SandP_500_UCITS_ETF_USD_Accumulating_9694_EU_INT_EN.pdf",
+          "retrieved": "2026-10-12",
+          "note": "Factsheet emitenta (PDF)"
+        },
+        "justEtfUrl": "https://www.justetf.com/en/etf-profile.html?isin=IE00BFMXXD54"
+      }
+    },
+    {
+      "ticker": "SPY",
+      "name": "SPDR S&P 500 ETF Trust",
+      "issuer": "State Street",
+      "index": "S&P 500",
+      "exchange": "NYSE Arca",
+      "exchangeSource": {
+        "url": "https://www.nasdaqtrader.com/dynamic/SymDir/otherlisted.txt",
+        "retrieved": "2026-10-12",
+        "note": "Oficiální adresář Nasdaq Trader, soubor ze dne 2026-10-12; sloupec Exchange: P = NYSE Arca"
+      },
+      "ter": 0.0945,
+      "aum": {
+        "value": 821678532946.34,
+        "currency": "USD",
+        "asOf": "2026-10-09",
+        "scope": "fond celkem"
+      },
+      "returnsNav": {
+        "y1": 15.6,
+        "y3": 22.73,
+        "y5": 13.65,
+        "y10": 15.18,
+        "asOf": "2026-09-30"
+      },
+      "source": {
+        "url": "https://www.ssga.com/us/en/intermediary/etfs/state-street-spdr-sp-500-etf-trust-spy",
+        "retrieved": "2026-10-12",
+        "note": "Sloupce výkonnosti na webu: 1M, 3M, YTD, 1R, 3R, 5R, 10R, od založení – bereme 1R až 10R."
+      },
+      "ucits": {
+        "ticker": "SPYL",
+        "isin": "IE000XZSV718",
+        "name": "SPDR S&P 500 UCITS ETF (Acc)",
+        "index": "S&P 500",
+        "distribution": "akumulační",
+        "domicile": "Irsko",
+        "ter": 0.03,
+        "aum": null,
+        "source": {
+          "url": "https://www.ssga.com/ie/en_gb/intermediary/etfs/state-street-spdr-sp-500-ucits-etf-acc-spyl-gy",
+          "retrieved": "2026-10-12"
+        },
+        "justEtfUrl": "https://www.justetf.com/en/etf-profile.html?isin=IE000XZSV718"
+      }
+    },
+    {
+      "ticker": "IVV",
+      "name": "iShares Core S&P 500 ETF",
+      "issuer": "iShares (BlackRock)",
+      "index": "S&P 500",
+      "exchange": "NYSE Arca",
+      "exchangeSource": {
+        "url": "https://www.nasdaqtrader.com/dynamic/SymDir/otherlisted.txt",
+        "retrieved": "2026-10-12",
+        "note": "Oficiální adresář Nasdaq Trader, soubor ze dne 2026-10-12; sloupec Exchange: P = NYSE Arca"
+      },
+      "ter": 0.03,
+      "aum": {
+        "value": 896439871787,
+        "currency": "USD",
+        "asOf": "2026-10-09",
+        "scope": "fond celkem"
+      },
+      "returnsNav": {
+        "y1": 15.71,
+        "y3": 22.85,
+        "y5": 13.76,
+        "y10": 15.3,
+        "asOf": "2026-09-30"
+      },
+      "source": {
+        "url": "https://www.ishares.com/us/products/239726/ishares-core-sp-500-etf",
+        "retrieved": "2026-10-12"
+      },
+      "ucits": {
+        "ticker": "CSPX",
+        "isin": "IE00B5BMR087",
+        "name": "iShares Core S&P 500 UCITS ETF USD (Acc)",
+        "index": "S&P 500",
+        "distribution": "akumulační",
+        "domicile": "Irsko",
+        "ter": 0.07,
+        "aum": {
+          "value": 161512817847,
+          "currency": "USD",
+          "asOf": "2026-10-09",
+          "scope": "fond celkem"
+        },
+        "source": {
+          "url": "https://www.ishares.com/uk/individual/en/products/253743/ishares-sp-500-b-ucits-etf-acc-fund",
+          "retrieved": "2026-10-12"
+        },
+        "justEtfUrl": "https://www.justetf.com/en/etf-profile.html?isin=IE00B5BMR087"
+      }
+    },
+    {
+      "ticker": "VT",
+      "name": "Vanguard Total World Stock ETF",
+      "issuer": "Vanguard",
+      "index": "FTSE Global All Cap",
+      "exchange": "NYSE Arca",
+      "exchangeSource": {
+        "url": "https://www.nasdaqtrader.com/dynamic/SymDir/otherlisted.txt",
+        "retrieved": "2026-10-12",
+        "note": "Oficiální adresář Nasdaq Trader, soubor ze dne 2026-10-12; sloupec Exchange: P = NYSE Arca"
+      },
+      "ter": 0.06,
+      "aum": {
+        "value": 81900000000,
+        "currency": "USD",
+        "asOf": "2026-08-31",
+        "scope": "třída ETF"
+      },
+      "returnsNav": {
+        "y1": 16.32,
+        "y3": 21.42,
+        "y5": 11.34,
+        "y10": 12.32,
+        "asOf": "2026-09-30"
+      },
+      "source": {
+        "url": "https://investor.vanguard.com/investment-products/etfs/profile/vt",
+        "retrieved": "2026-10-12",
+        "note": "Data z JSON API stránky emitenta: https://investor.vanguard.com/vmf/api/VT/profile, /performance, /characteristic"
+      },
+      "ucits": {
+        "ticker": "VWCE",
+        "isin": "IE00BK5BQT80",
+        "name": "Vanguard FTSE All-World UCITS ETF (USD) Accumulating",
+        "index": "FTSE All-World",
+        "distribution": "akumulační",
+        "domicile": "Irsko",
+        "ter": 0.14,
+        "aum": {
+          "value": 58049000000,
+          "currency": "USD",
+          "asOf": "2026-08-31",
+          "scope": "třída fondu"
+        },
+        "source": {
+          "url": "https://fund-docs.vanguard.com/FTSE_All-World_UCITS_ETF_USD_Accumulating_9679_EU_INT_EN.pdf",
+          "retrieved": "2026-10-12",
+          "note": "Factsheet emitenta (PDF)"
+        },
+        "indexNote": "VT sleduje širší FTSE Global All Cap (i malé firmy), VWCE sleduje FTSE All-World (velké a střední firmy). Podobná expozice, ne identický index.",
+        "justEtfUrl": "https://www.justetf.com/en/etf-profile.html?isin=IE00BK5BQT80"
+      }
+    },
+    {
+      "ticker": "VWO",
+      "name": "Vanguard FTSE Emerging Markets ETF",
+      "issuer": "Vanguard",
+      "index": "FTSE Emerging Markets All Cap China A Inclusion",
+      "exchange": "NYSE Arca",
+      "exchangeSource": {
+        "url": "https://www.nasdaqtrader.com/dynamic/SymDir/otherlisted.txt",
+        "retrieved": "2026-10-12",
+        "note": "Oficiální adresář Nasdaq Trader, soubor ze dne 2026-10-12; sloupec Exchange: P = NYSE Arca"
+      },
+      "ter": 0.06,
+      "aum": {
+        "value": 127300000000,
+        "currency": "USD",
+        "asOf": "2026-08-31",
+        "scope": "třída ETF"
+      },
+      "returnsNav": {
+        "y1": 12.54,
+        "y3": 17.91,
+        "y5": 6.62,
+        "y10": 7.66,
+        "asOf": "2026-09-30"
+      },
+      "source": {
+        "url": "https://investor.vanguard.com/investment-products/etfs/profile/vwo",
+        "retrieved": "2026-10-12",
+        "note": "Data z JSON API stránky emitenta: https://investor.vanguard.com/vmf/api/VWO/profile, /performance, /characteristic"
+      },
+      "ucits": {
+        "ticker": "VFEA",
+        "isin": "IE00BK5BR733",
+        "name": "Vanguard FTSE Emerging Markets UCITS ETF (USD) Accumulating",
+        "index": "FTSE Emerging",
+        "distribution": "akumulační",
+        "domicile": "Irsko",
+        "ter": 0.17,
+        "aum": {
+          "value": 2385000000,
+          "currency": "USD",
+          "asOf": "2026-08-31",
+          "scope": "třída fondu"
+        },
+        "source": {
+          "url": "https://fund-docs.vanguard.com/FTSE_Emerging_Markets_UCITS_ETF_USD_Accumulating_9678_EU_INT_EN.pdf",
+          "retrieved": "2026-10-12",
+          "note": "Factsheet emitenta (PDF)"
+        },
+        "indexNote": "VWO sleduje FTSE Emerging Markets All Cap China A Inclusion, UCITS verze FTSE Emerging. Podobná expozice, ne identický index.",
+        "justEtfUrl": "https://www.justetf.com/en/etf-profile.html?isin=IE00BK5BR733"
+      }
+    }
+  ]
+}

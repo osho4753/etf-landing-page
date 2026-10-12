@@ -1,0 +1,175 @@
+{
+  "retrieved": "2026-10-12",
+  "items": [
+    {
+      "label": "exchange IVV",
+      "url": "https://www.nasdaqtrader.com/dynamic/SymDir/otherlisted.txt",
+      "excerpt": "IVV|iShares Core S&P 500 ETF|P|IVV|Y|40|N|IVV"
+    },
+    {
+      "label": "exchange SPY",
+      "url": "https://www.nasdaqtrader.com/dynamic/SymDir/otherlisted.txt",
+      "excerpt": "SPY|State Street SPDR S&P 500 ETF Trust|P|SPY|Y|40|N|SPY"
+    },
+    {
+      "label": "exchange VOO",
+      "url": "https://www.nasdaqtrader.com/dynamic/SymDir/otherlisted.txt",
+      "excerpt": "VOO|Vanguard S&P 500 ETF|P|VOO|Y|40|N|VOO"
+    },
+    {
+      "label": "exchange VT",
+      "url": "https://www.nasdaqtrader.com/dynamic/SymDir/otherlisted.txt",
+      "excerpt": "VT|Vanguard Total World Stock Index ETF|P|VT|Y|100|N|VT"
+    },
+    {
+      "label": "exchange VWO",
+      "url": "https://www.nasdaqtrader.com/dynamic/SymDir/otherlisted.txt",
+      "excerpt": "VWO|Vanguard FTSE Emerging Markets ETF|P|VWO|Y|100|N|VWO"
+    },
+    {
+      "label": "SPY gross expense ratio",
+      "url": "https://www.ssga.com/us/en/intermediary/etfs/state-street-spdr-sp-500-etf-trust-spy",
+      "excerpt": "Gross Expense Ratio&lt;/strong>&lt;/p>&lt;p>The fund's total annual operating expense ratio. It is gross of any fee waivers or expense reimbursements. It can be found in the fund's most recent prospectus.&lt;/p>\",\"originalValue\":\"0.0945\""
+    },
+    {
+      "label": "SPY AUM",
+      "url": "https://www.ssga.com/us/en/intermediary/etfs/state-street-spdr-sp-500-etf-trust-spy",
+      "excerpt": "Assets Under Management\",\"value\":\"$821,678.53 M\",\"asOfDate\":\"as of Oct 09 2026\",\"asOfDateSimple\":\"Oct 09 2026\",\"originalValue\":\"821678532946.34\""
+    },
+    {
+      "label": "SPY NAV performance (1M 3M YTD 1Y 3Y 5Y 10Y SI)",
+      "url": "https://www.ssga.com/us/en/intermediary/etfs/state-street-spdr-sp-500-etf-trust-spy",
+      "excerpt": "1 Year 3 Year 5 Year 10 Year Since Inception Jan 22 1993 Fund Before Tax NAV Sep 30 2026 -0.35% 2.28% 12.65% 15.60% 22.73% 13.65% 15.18% 10.82%"
+    },
+    {
+      "label": "SPYL TER",
+      "url": "https://www.ssga.com/ie/en_gb/intermediary/etfs/state-street-spdr-sp-500-ucits-etf-acc-spyl-gy",
+      "excerpt": "\"total-expense-ratio\":{\"label\":\"TER\",\"value\":\"0.03%\""
+    },
+    {
+      "label": "ČSOB KID datum",
+      "url": "https://multimediafiles.kbcgroup.eu/ng/feed/am/funds/KID/KID_CZ0008477098_CS.PDF",
+      "excerpt": "Datum vypracování nebo poslední úpravy: 1. června 2026"
+    },
+    {
+      "label": "ČSOB vstupní náklady",
+      "url": "https://multimediafiles.kbcgroup.eu/ng/feed/am/funds/KID/KID_CZ0008477098_CS.PDF",
+      "excerpt": "Náklady na vstup Max. 3,00%"
+    },
+    {
+      "label": "ČSOB průběžné náklady",
+      "url": "https://multimediafiles.kbcgroup.eu/ng/feed/am/funds/KID/KID_CZ0008477098_CS.PDF",
+      "excerpt": "správní nebo 2,65% hodnoty Vaší investice za rok"
+    },
+    {
+      "label": "ČSOB transakční náklady",
+      "url": "https://multimediafiles.kbcgroup.eu/ng/feed/am/funds/KID/KID_CZ0008477098_CS.PDF",
+      "excerpt": "Transakční náklady 0,42% hodnoty Vaší investice za rok"
+    },
+    {
+      "label": "ČSOB doporučená doba držení",
+      "url": "https://multimediafiles.kbcgroup.eu/ng/feed/am/funds/KID/KID_CZ0008477098_CS.PDF",
+      "excerpt": "Doporučená doba držení: 8 let"
+    },
+    {
+      "label": "VUAA OCF",
+      "url": "https://fund-docs.vanguard.com/SandP_500_UCITS_ETF_USD_Accumulating_9694_EU_INT_EN.pdf",
+      "excerpt": "Ongoing Charges Figure†  0.07%"
+    },
+    {
+      "label": "VUAA share class assets",
+      "url": "https://fund-docs.vanguard.com/SandP_500_UCITS_ETF_USD_Accumulating_9694_EU_INT_EN.pdf",
+      "excerpt": "Share class assets (million) $35,852 as at 31 August 2026"
+    },
+    {
+      "label": "VWCE OCF",
+      "url": "https://fund-docs.vanguard.com/FTSE_All-World_UCITS_ETF_USD_Accumulating_9679_EU_INT_EN.pdf",
+      "excerpt": "Ongoing Charges Figure†  0.14%"
+    },
+    {
+      "label": "VWCE share class assets",
+      "url": "https://fund-docs.vanguard.com/FTSE_All-World_UCITS_ETF_USD_Accumulating_9679_EU_INT_EN.pdf",
+      "excerpt": "Share class assets (million) $58,049 as at 31 August 2026"
+    },
+    {
+      "label": "VFEA OCF",
+      "url": "https://fund-docs.vanguard.com/FTSE_Emerging_Markets_UCITS_ETF_USD_Accumulating_9678_EU_INT_EN.pdf",
+      "excerpt": "Ongoing Charges Figure†  0.17%"
+    },
+    {
+      "label": "VFEA share class assets",
+      "url": "https://fund-docs.vanguard.com/FTSE_Emerging_Markets_UCITS_ETF_USD_Accumulating_9678_EU_INT_EN.pdf",
+      "excerpt": "Share class assets (million) $2,385 as at 31 August 2026"
+    },
+    {
+      "label": "VT profile",
+      "url": "https://investor.vanguard.com/vmf/api/VT/profile",
+      "excerpt": "expenseRatio=0.0600 asOf=2026-02-27T00:00:00-05:00"
+    },
+    {
+      "label": "VT performance",
+      "url": "https://investor.vanguard.com/vmf/api/VT/performance",
+      "excerpt": "{\"asOfDate\":\"2026-09-30T00:00:00-04:00\",\"id\":\"3141\",\"name\":\"Total World Stock ETF    \",\"calendarYTDPct\":\"12.83\",\"prevMonthPct\":\"-1.44\",\"threeMonthPct\":\"0.76\",\"oneYrPct\":\"16.32\",\"threeYrPct\":\"21.42\",\"fiveYrPct\":\"11.34\",\"tenYrPct\":\"12.32\",\"sinceInceptionPct\":\"8.78\",\"isLastMonthEndPerformanceDataAvailable\":false}"
+    },
+    {
+      "label": "VT share class assets",
+      "url": "https://investor.vanguard.com/vmf/api/VT/characteristic",
+      "excerpt": "\"shareClassTotalNetAssets\":\"$81.9 billion\",\"shareClassTotalNetAssetsDate\":\"2026-08-31"
+    },
+    {
+      "label": "CSPX TER",
+      "url": "https://www.ishares.com/uk/individual/en/products/253743/ishares-sp-500-b-ucits-etf-acc-fund",
+      "excerpt": "Total Expense Ratio 0.07%"
+    },
+    {
+      "label": "CSPX net assets",
+      "url": "https://www.ishares.com/uk/individual/en/products/253743/ishares-sp-500-b-ucits-etf-acc-fund",
+      "excerpt": "Net Assets of Fund as of 09/Oct/2026 USD 161,512,817,847"
+    },
+    {
+      "label": "VOO profile",
+      "url": "https://investor.vanguard.com/vmf/api/VOO/profile",
+      "excerpt": "expenseRatio=0.0300 asOf=2026-04-28T00:00:00-04:00"
+    },
+    {
+      "label": "VOO performance",
+      "url": "https://investor.vanguard.com/vmf/api/VOO/performance",
+      "excerpt": "{\"asOfDate\":\"2026-09-30T00:00:00-04:00\",\"id\":\"0968\",\"name\":\"S&P 500 ETF              \",\"calendarYTDPct\":\"12.72\",\"prevMonthPct\":\"-0.35\",\"threeMonthPct\":\"2.30\",\"oneYrPct\":\"15.70\",\"threeYrPct\":\"22.85\",\"fiveYrPct\":\"13.75\",\"tenYrPct\":\"15.29\",\"sinceInceptionPct\":\"14.94\",\"isLastMonthEndPerformanceDataAvailable\":false}"
+    },
+    {
+      "label": "VOO share class assets",
+      "url": "https://investor.vanguard.com/vmf/api/VOO/characteristic",
+      "excerpt": "\"shareClassTotalNetAssets\":\"$1.0 trillion\",\"shareClassTotalNetAssetsDate\":\"2026-08-31"
+    },
+    {
+      "label": "VWO profile",
+      "url": "https://investor.vanguard.com/vmf/api/VWO/profile",
+      "excerpt": "expenseRatio=0.0600 asOf=2026-02-27T00:00:00-05:00"
+    },
+    {
+      "label": "VWO performance",
+      "url": "https://investor.vanguard.com/vmf/api/VWO/performance",
+      "excerpt": "{\"asOfDate\":\"2026-09-30T00:00:00-04:00\",\"id\":\"0964\",\"name\":\"FTSE Emerging Markets ETF\",\"calendarYTDPct\":\"11.02\",\"prevMonthPct\":\"-1.63\",\"threeMonthPct\":\"-0.15\",\"oneYrPct\":\"12.54\",\"threeYrPct\":\"17.91\",\"fiveYrPct\":\"6.62\",\"tenYrPct\":\"7.66\",\"sinceInceptionPct\":\"6.79\",\"isLastMonthEndPerformanceDataAvailable\":false}"
+    },
+    {
+      "label": "VWO share class assets",
+      "url": "https://investor.vanguard.com/vmf/api/VWO/characteristic",
+      "excerpt": "\"shareClassTotalNetAssets\":\"$127.3 billion\",\"shareClassTotalNetAssetsDate\":\"2026-08-31"
+    },
+    {
+      "label": "IVV expense ratio",
+      "url": "https://www.ishares.com/us/products/239726/ishares-core-sp-500-etf",
+      "excerpt": "Expense Ratio: Fees as stated in the prospectus 0.03%"
+    },
+    {
+      "label": "IVV net assets",
+      "url": "https://www.ishares.com/us/products/239726/ishares-core-sp-500-etf",
+      "excerpt": "Net Assets of Fund $896,439,871,787 as of Oct 09, 2026"
+    },
+    {
+      "label": "IVV average annual total return NAV",
+      "url": "https://www.ishares.com/us/products/239726/ishares-core-sp-500-etf",
+      "excerpt": "Average Annual Cumulative Calendar Year As of Dates Sep 30, 2026 Sep 30, 2026 Dec 31, 2025 Total Return (%) Market Price (%) Benchmark (%) After Tax Pre-Liq. (%) After Tax Post-Liq. (%) 1y 3y 5y 10y Incept. 15.71 22.85 13.76 15.30"
+    }
+  ]
+}
