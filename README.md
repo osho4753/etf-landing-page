@@ -130,16 +130,19 @@ Kotva: Unbounce Conversion Benchmark Report (finance, aktualizace 25. 2. 2026) �
 
 ## 9. Kvalita
 
-- **Lighthouse – produkce po optimalizaci LCP (12. 10. 2026).** Měřeno Lighthouse 12 se simulovaným škrcením, stejně jako PageSpeed Insights. Mobil odpovídá Moto G Power na pomalém 4G, desktop presetu Lighthouse. Umami bylo při měření blokované, aby test neznečistil data. PageSpeed Insights se v den měření použít nedalo: API vracelo „Quota exceeded“ a web „Unable to resolve“.
+- **Lighthouse – produkce (12. a 13. 10. 2026).** Měřeno Lighthouse 12 se simulovaným škrcením, stejně jako PageSpeed Insights. Mobil odpovídá Moto G Power na pomalém 4G, desktop presetu Lighthouse. Umami bylo při měření blokované, aby test neznečistil data. PageSpeed Insights se použít nedalo: API vracelo „Quota exceeded“ a web „Unable to resolve“ (zkoušeno 12. i 13. 10.).
 
   | Produkce (Vercel) | Výkon | Přístupnost | Best practices | SEO | FCP | LCP | TBT | CLS | Běhy (výkon) |
   |---|---|---|---|---|---|---|---|---|---|
-  | **Mobil A** – medián z 5 | 93 | 100 | 100 | 100 | 1,7 s | 2,8 s | 70 ms | 0 | 92–94 |
-  | **Mobil B** – medián z 5 | 93 | 100 | 100 | 100 | 1,7 s | 2,8 s | 100 ms | 0 | 93 |
-  | **Desktop A** – medián ze 3 | 100 | 100 | 100 | 100 | 0,5 s | 0,6 s | 0 ms | 0 | 100 |
-  | **Desktop B** – medián ze 3 | 100 | 100 | 100 | 100 | 0,5 s | 0,6 s | 0 ms | 0 | 100 |
-  | *Mobil A / B před optimalizací* | *92 / 90* | *100* | *100* | *100* | *1,7 s* | *3,1 s* | *120 ms* | *0* | *90–92* |
-  | Lokálně (`next start`), mobil A / B – medián z 5 | 96 / 96 | 100 | 100 | 100 | 1,5 s | 2,6 s | 100–120 ms | 0 | 92–97 |
+  | **Mobil A** – s animací a fotkou, medián z 5 (13. 10.) | 87 | 100 | 100 | 100 | 1,7 s | 2,9 s | 260 ms | 0 | 85–89 |
+  | **Mobil B** – s animací a fotkou, medián z 5 (13. 10.) | 89 | 100 | 100 | 100 | 1,7 s | 2,9 s | 210 ms | 0 | 84–91 |
+  | **Desktop A** – s animací a fotkou, medián ze 3 (13. 10.) | 100 | 100 | 100 | 100 | 0,5 s | 0,6 s | 40 ms | 0 | 100 |
+  | **Desktop B** – s animací a fotkou, medián ze 3 (13. 10.) | 100 | 100 | 100 | 100 | 0,5 s | 0,7 s | 50 ms | 0 | 100 |
+  | *Mobil A / B – po optimalizaci LCP, s animací, bez fotky (12. 10.)* | *93 / 93* | *100* | *100* | *100* | *1,7 s* | *2,8 s* | *70–100 ms* | *0* | *92–94* |
+  | *Mobil A / B – před optimalizací* | *92 / 90* | *100* | *100* | *100* | *1,7 s* | *3,1 s* | *120 ms* | *0* | *90–92* |
+  | Lokálně (`next start`), mobil A / B – medián z 5 (12. 10.) | 96 / 96 | 100 | 100 | 100 | 1,5 s | 2,6 s | 100–120 ms | 0 | 92–97 |
+
+  Mobilní skóre z 13. 10. je nižší kvůli stavu měřicího počítače, ne kvůli změnám. Lighthouse násobí naměřený čas procesoru a TBT stoupl z 70 na 210–260 ms. Ve stejnou chvíli měl i lokální build bez fotky (`27e34ee`) jen 89 / 87, předtím 96 / 96. Fotka se při načtení stránky nestahuje, protože je v sekci FAQ hluboko pod ohybem, a na výkon tedy nemá vliv (viz níže). Přístupnost zůstává 100 všude.
 
   **LCP.** LCP prvkem je text v hero (nadpis, u A někdy odstavec pod ním).
   - Co blokovalo první vykreslení:
@@ -255,7 +258,7 @@ Celá stránka vznikla v Claude Code. Exporty konverzace jsou v [ai-log/](ai-log
 | Landing page se srovnáním ETF z NYSE pro českého drobného investora z mobilní reklamy | Web https://etf-landing-page-three.vercel.app. Srovnání 5 ETF z NYSE Arca ↔ UCITS (`src/components/Compare.tsx`). Návrh pro mobil 390 px, [screenshoty](docs/screenshots/). |
 | Lead magnet: hodnota výměnou za kontakt, optimalizace na kontakty | Kapitola 2 (Osobní přehled na stránce, v PDF a e-mailem). Formulář pod výsledkem, CTA na kartách srovnání, spodní lišta. |
 | Nepůsobit jako základní výstup od Claude, design a texty pro cílovou skupinu | Vlastní vizuál (tokeny v `src/app/globals.css`, fonty Bricolage Grotesque a Onest). Texty česky, psané pro cílovou skupinu z kapitoly 1. Dvě varianty podle reklamy (kapitola 3). |
-| Dá se zítra spustit reklama | Nasazeno, Lighthouse mobil 92–94 / 100 / 100 / 100, desktop 100 (kapitola 9). Měření funguje (kapitola 6). Reklamy s produkčními URL a UTM ([ads/README.md](ads/README.md)). Disclaimery a ochrana údajů (kapitola 11). |
+| Dá se zítra spustit reklama | Nasazeno, Lighthouse mobil 87–93 podle zatížení měřicího počítače, přístupnost, best practices a SEO 100, desktop 100 (kapitola 9). Měření funguje (kapitola 6). Reklamy s produkčními URL a UTM ([ads/README.md](ads/README.md)). Disclaimery a ochrana údajů (kapitola 11). |
 | Určit cílovou skupinu | Kapitola 1 |
 | Co návštěvník dostane za kontakt a kdy o něj žádáme. Hodnota zřejmá před formulářem | Kapitola 2. Modelové číslo je v hero bez scrollování a kalkulačka i srovnání jsou bez formuláře. |
 | Dvě verze reklamy | [ads/](ads/): `reklama-a-poplatky.png`, `reklama-b-srovnani.png` (1080 × 1350) a texty pro Meta v [ads/README.md](ads/README.md) |
