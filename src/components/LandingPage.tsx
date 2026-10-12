@@ -3,6 +3,7 @@ import { Calculator } from "./Calculator";
 import { Compare } from "./Compare";
 import { HeroCompare, HeroFees } from "./Hero";
 import { LeadProvider, type Variant } from "./LeadProvider";
+import { RevealObserver } from "./Reveal";
 import { Faq, Footer, KidExplainer, PlanPreview, SectionTitle, Sources } from "./Sections";
 import { StickyCta } from "./StickyCta";
 import { ThankYou } from "./ThankYou";
@@ -86,6 +87,7 @@ export function LandingPage({ variant }: { variant: Variant }) {
       </main>
       <Footer />
       <StickyCta />
+      <RevealObserver />
       <Analytics variant={variant} />
     </LeadProvider>
   );

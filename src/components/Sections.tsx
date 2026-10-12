@@ -5,7 +5,7 @@ import { TAX_RULES } from "@/content/overview";
 
 export function SectionTitle({ eyebrow, title, lead, id }: { eyebrow: string; title: string; lead?: string; id: string }) {
   return (
-    <header className="mb-6 max-w-2xl">
+    <header data-reveal className="mb-6 max-w-2xl">
       <p className="text-sm font-semibold uppercase tracking-wider text-mint-ink">{eyebrow}</p>
       <h2 id={id} className="mt-1 font-display text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl">
         {title}
@@ -37,7 +37,7 @@ export function KidExplainer() {
           d: `Vanguard, iShares i SPDR mají irské (UCITS) fondy na stejný nebo podobný index. Mají KID, takže je evropský broker nabídnout smí. Roční náklady: ${terRange}.`,
         },
       ].map((s) => (
-        <div key={s.n} className="rounded-3xl bg-card p-5">
+        <div key={s.n} data-reveal className="rounded-3xl bg-card p-5">
           <p className="font-display text-4xl font-extrabold text-gold">{s.n}</p>
           <h3 className="mt-2 font-display text-xl font-extrabold">{s.t}</h3>
           <p className="mt-1.5 text-ink-soft">{s.d}</p>
@@ -65,7 +65,7 @@ export function PlanPreview() {
     <div className="grid gap-6 md:grid-cols-2 md:items-start">
       <ol className="grid gap-3">
         {items.map(([t, d], i) => (
-          <li key={t} className="flex gap-3 rounded-2xl bg-card p-4">
+          <li key={t} data-reveal className="flex gap-3 rounded-2xl bg-card p-4">
             <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-pine font-bold text-white">{i + 1}</span>
             <span>
               <strong className="block">{t}</strong>
@@ -108,7 +108,7 @@ export function Faq() {
   return (
     <div className="grid gap-2">
       {items.map((i) => (
-        <details key={i.q} className="group rounded-2xl bg-card p-4 open:pb-5">
+        <details key={i.q} data-reveal className="group rounded-2xl bg-card p-4 open:pb-5">
           <summary className="flex cursor-pointer list-none items-center justify-between gap-3 font-semibold">
             {i.q}
             <span aria-hidden className="text-xl text-pine transition group-open:rotate-45">

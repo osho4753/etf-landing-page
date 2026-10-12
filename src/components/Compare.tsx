@@ -27,7 +27,7 @@ function Card({ fund }: { fund: Fund }) {
   const selected = etf === fund.ticker;
 
   return (
-    <li className={`flex flex-col rounded-3xl border-2 bg-card p-4 sm:p-5 ${selected ? "border-pine" : "border-transparent"}`}>
+    <li data-reveal className={`flex flex-col rounded-3xl border-2 bg-card p-4 sm:p-5 ${selected ? "border-pine" : "border-transparent"}`}>
       <div className="flex items-start justify-between gap-3">
         <div>
           <p className="font-display text-3xl font-extrabold leading-none">{fund.ticker}</p>

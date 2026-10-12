@@ -64,7 +64,7 @@ export function Calculator() {
   }
 
   return (
-    <div className="grid gap-6 md:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] md:items-start">
+    <div data-reveal className="grid gap-6 md:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] md:items-start">
       <form className="grid gap-5" onSubmit={(e) => e.preventDefault()} aria-label="Vstupy kalkulačky">
         <div className="sticky top-0 z-10 -mx-4 flex items-baseline justify-between gap-3 border-b border-line bg-card/95 px-4 py-2.5 backdrop-blur md:hidden" aria-hidden>
           <span className="text-sm text-ink-soft">Rozdíl ve prospěch ETF</span>
