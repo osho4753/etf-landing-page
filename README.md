@@ -120,7 +120,7 @@ Kotva: Unbounce Conversion Benchmark Report (finance, aktualizace 25. 2. 2026) �
 | Focus do e-mailu | 30 % | 12,6 |
 | Odeslání | 45 % | **≈ 5,7 %** |
 
-**Očekávaná konverze návštěva → lead: 5–6 %** (pesimisticky 3,5 % ≈ medián investic, optimisticky 9 % ≈ medián paid social ve financích). Mezikroky jsou odhad; ověří se po prvních ~1 000 návštěvách.
+**Očekávaná konverze návštěva → lead: 5–6 %** – odhad z benchmarku a předpokladů po krocích, ne měření (pesimisticky 3,5 % ≈ medián investic, optimisticky 9 % ≈ medián paid social ve financích). Mezikroky jsou odhad; ověří se po prvních ~1 000 návštěvách.
 
 ## 8. Tři hypotézy na A/B test (podle očekávaného dopadu)
 
@@ -237,7 +237,7 @@ Celá stránka vznikla v Claude Code. Exporty konverzace jsou v [ai-log/](ai-log
 - Převzal výstup automatického sumarizátoru s posunutými sloupci výkonnosti SPY. Opraveno přechodem na surová data.
 - Napsal tvrzení bez zdroje. Všechna byla odstraněna:
   - „KID v češtině“ u každého fondu,
-  - „UCITS verze mají nižší náklady“ (ve skutečnosti mají mírně vyšší TER),
+  - „UCITS verze mají nižší náklady“ (ve skutečnosti mají většinou mírně vyšší TER: VUAA, CSPX, VWCE, VFEA; SPYL je naopak levnější než SPY),
   - obchodní hodiny Xetry,
   - název společnosti Brevo,
   - tvrzení o IP adresách v Umami,
@@ -247,6 +247,8 @@ Celá stránka vznikla v Claude Code. Exporty konverzace jsou v [ai-log/](ai-log
 - Přehlédl ztrátu `lead_submit` při odeslání bez JS (kapitola 12).
 - `vercel link` mu bez upozornění přidal závislost a změnil `.gitignore`. Vráceno.
 - Při úpravách textu několikrát rozbil escape sekvence nezlomitelných mezer.
+- Nadhodnotil srovnání v reklamě A a v hero. Bankovní fond porovnával s IVV (S&P 500) a psal „ETF na stejný trh“. Podle KID ale ČSOB Akciový zodpovědný investuje hlavně v USA a Evropě (referenční hodnota 65 % MSCI USA + 35 % MSCI Europe), takže o stejný trh nešlo. Zachytil to až review. Opraveno: výchozí srovnání je globální VT → VWCE, reklama říká „přes 400 000 Kč“ a „globální ETF místo fondu na akcie USA a Evropy“, pod kalkulačkou je poznámka, že srovnání ukazuje vliv nákladů, ne stejné portfolio (kapitola 5).
+- Tvrdil, že každý commit projde buildem, ačkoli prvních 5 feature commitů (`a4529ff`–`618f7bd`) vzniklo rozdělením jedné dávky podle souborů a samostatně se nesestaví (kapitola 14).
 
 ## 14. Kontrola proti zadání
 
@@ -270,7 +272,7 @@ Celá stránka vznikla v Claude Code. Exporty konverzace jsou v [ai-log/](ai-log
 | README: 3 hypotézy A/B seřazené podle dopadu | Kapitola 8 |
 | Nasazení na bezplatný hosting | Vercel: https://etf-landing-page-three.vercel.app |
 | Veřejný repozitář na GitHubu | https://github.com/osho4753/etf-landing-page |
-| V repozitáři výsledek, obě reklamy, kód s průběžnou historií commitů | Kód v `src/`, reklamy v `ads/`. Historie má desítky malých commitů a každý projde buildem. |
+| V repozitáři výsledek, obě reklamy, kód s průběžnou historií commitů | Kód v `src/`, reklamy v `ads/`. Historie má desítky malých commitů. Prvních 5 feature commitů (`a4529ff`–`618f7bd`) ale vzniklo rozdělením jedné dávky práce podle souborů a samostatně se nesestaví: například `6689176` importuje komponentu `Analytics`, která přibyla až v `618f7bd`. Od `8ddb860` jsou commity průběžné. Historii jsem nepřepisoval. |
 | `ai-log/` s exportem konverzací (`/export`) | [ai-log/](ai-log/): export přes `/export` a úplný export (kapitola 13) |
 
 **Kontrola obsahu README:**
