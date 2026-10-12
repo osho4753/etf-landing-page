@@ -91,6 +91,10 @@ export function formatCzk(value: number) {
   return `${czk.format(Math.round(value))}\u00a0Kč`;
 }
 
+export function floorForClaim(value: number) {
+  return Math.floor(value / 100_000) * 100_000;
+}
+
 export function roundForDisplay(value: number) {
   if (value >= 100_000) return Math.round(value / 1_000) * 1_000;
   return Math.round(value / 100) * 100;

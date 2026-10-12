@@ -1,7 +1,7 @@
 "use client";
 
 import { compare, formatCzk, roundForDisplay, type CalcInput } from "@/lib/calc";
-import { bankCost, bankFund, etfCost, fees, findFund, formatDate, formatTer } from "@/lib/data";
+import { bankCost, bankFund, entryFeeLabel, etfCost, fees, findFund, formatDate, formatTer } from "@/lib/data";
 import { GrowthChart } from "./GrowthChart";
 import { PdfButton } from "./PdfButton";
 import { BUY_STEPS, TAX_RULES } from "@/content/overview";
@@ -47,7 +47,7 @@ export function Overview({ input, etf, email }: { input: CalcInput; etf: string;
           <GrowthChart points={r.points} title="Vývoj hodnoty investice podle vašich čísel" />
         </div>
         <p className="mt-2 text-xs text-ink-soft">
-          Výnos {fees.assumptions.grossReturn} % ročně před náklady. Bankovní fond {bankFund.name}: vstup {bankFund.entry.toLocaleString("cs-CZ")} %, průběžně{" "}
+          Výnos {fees.assumptions.grossReturn} % ročně před náklady. Bankovní fond {bankFund.name}: vstup {entryFeeLabel}, průběžně{" "}
           {bankFund.ongoing.toLocaleString("cs-CZ")} % ročně (KID, {formatDate(bankFund.kidDate)}). ETF: TER {formatTer(fund.ucits.ter)}, náklady brokera{" "}
           {fees.etfSide.brokerCostPerDeposit.toLocaleString("cs-CZ")} % z vkladu (předpoklad).
         </p>

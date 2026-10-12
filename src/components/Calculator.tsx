@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { LIMITS, formatCzk, roundForDisplay, type CalcInput } from "@/lib/calc";
-import { bankFund, fees, findFund, formatDate, formatTer, funds } from "@/lib/data";
+import { LIMITS, compare, formatCzk, roundForDisplay, type CalcInput } from "@/lib/calc";
+import { bankCost, bankFund, entryFeeLabel, etfCost, fees, findFund, formatDate, formatTer, funds } from "@/lib/data";
 import { track, trackOnce } from "@/lib/track";
 import { GrowthChart } from "./GrowthChart";
 import { useLead } from "./LeadProvider";
@@ -24,6 +24,7 @@ export function Calculator() {
   const { input, setInput, result, etf, setEtf } = useLead();
   const resultRef = useRef<HTMLParagraphElement>(null);
   const fund = findFund(etf);
+  const noEntry = compare(input, { ...bankCost, entryPct: 0 }, etfCost(fund.ticker));
 
   const interacted = useRef(false);
   const visible = useRef(false);
@@ -128,6 +129,10 @@ export function Calculator() {
           {formatCzk(roundForDisplay(Math.abs(result.difference)))}
         </p>
         <p className="mt-1 text-sm text-ink-soft">ve prospěch ETF {fund.ucits.ticker} oproti bankovnímu fondu</p>
+        <p className="tabular mt-1 text-sm text-ink-soft">
+          Bez vstupního poplatku by rozdíl byl {noEntry.difference < 0 ? "−" : ""}
+          {formatCzk(roundForDisplay(Math.abs(noEntry.difference)))}.
+        </p>
 
         <dl className="mt-4 grid grid-cols-2 gap-3 text-sm">
           <div className="rounded-2xl bg-mint-soft p-3">
@@ -150,7 +155,7 @@ export function Calculator() {
                 Modelový výnos {fees.assumptions.grossReturn} % ročně před náklady, stejný pro obě varianty. Nejde o předpověď ani slib výnosu.
               </li>
               <li>
-                Bankovní fond: {bankFund.name} – vstupní poplatek {bankFund.entry.toLocaleString("cs-CZ")} % z každého vkladu, průběžné náklady{" "}
+                Bankovní fond: {bankFund.name} – vstupní poplatek {entryFeeLabel} z každého vkladu, průběžné náklady{" "}
                 {bankFund.ongoing.toLocaleString("cs-CZ")} % ročně. Transakční náklady ({bankFund.transaction.toLocaleString("cs-CZ")} %) nezapočítáváme. Zdroj:{" "}
                 <a className="underline" href={bankFund.source.url} target="_blank" rel="noopener noreferrer">
                   sdělení klíčových informací (KID)
@@ -163,6 +168,11 @@ export function Calculator() {
                   emitent
                 </a>
                 , staženo {formatDate(fund.ucits.source.retrieved)}.
+              </li>
+              <li>
+                Srovnávací index fondu je {bankFund.benchmark} (KID, {formatDate(bankFund.kidDate)}). {fund.ucits.ticker} sleduje {fund.ucits.index}
+                {fund.ticker === "VT" ? " – je širší, obsahuje i Japonsko, další Asii a rozvíjející se trhy" : ""}. Fond měnové riziko většinou zajišťuje, ETF ne. Srovnání
+                ukazuje vliv nákladů, ne stejné portfolio.
               </li>
               <li>Náklady brokera a konverze měny: předpoklad {fees.etfSide.brokerCostPerDeposit.toLocaleString("cs-CZ")} % z každého vkladu (u různých brokerů se liší).</li>
               <li>Daně a inflaci nezohledňujeme. Minulá ani modelová výkonnost nezaručuje budoucí výnosy.</li>

@@ -39,6 +39,8 @@ export const bankFund = feesJson.bankFund;
 
 export const bankCost: CostModel = { entryPct: bankFund.entry, ongoingPct: bankFund.ongoing };
 
+export const entryFeeLabel = `max. ${bankFund.entry.toLocaleString("cs-CZ")} % dle KID`;
+
 export function etfCost(ticker: string): CostModel {
   const fund = funds.find((f) => f.ticker === ticker) ?? funds[0];
   return { entryPct: fees.etfSide.brokerCostPerDeposit, ongoingPct: fund.ucits.ter };

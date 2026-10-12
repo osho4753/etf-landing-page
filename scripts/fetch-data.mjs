@@ -194,6 +194,9 @@ async function csobKid() {
     ongoing: cz(ongoing[1] ?? ongoing[2]),
     transaction: cz(trans[1]),
     recommendedHoldingYears: Number(hold[1]),
+    markets: objective[1],
+    benchmark: [...benchmark[1].matchAll(/(d+)% (MSCI [A-Za-z ]+?) –/g)].map((m) => `${m[1]} % ${m[2]}`).join(" + "),
+    currencyMostlyHedged: hedge[0].length > 0,
     kidDate: `${date[3]}-${mm}-${date[1].padStart(2, "0")}`,
     pdfSha256: sha256,
     source: src(url, "Sdělení klíčových informací (PRIIPs KID), oddíl Skladba nákladů"),
@@ -273,7 +276,7 @@ const fees = {
     grossReturn: 6,
     note: "Modelový roční výnos před náklady 6 % p. a. – stejný pro obě varianty, aby rozdíl ukazoval jen vliv nákladů. Nejde o predikci ani slib výnosu.",
   },
-  defaultEtf: "IVV",
+  defaultEtf: "VT",
 };
 
 writeFileSync(join(ROOT, "data", "etf.json"), JSON.stringify(etf, null, 2) + "\n");

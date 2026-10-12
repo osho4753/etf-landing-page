@@ -1,5 +1,5 @@
-import { compare, DEFAULT_INPUT, formatCzk, roundForDisplay } from "@/lib/calc";
-import { bankCost, bankFund, etfCost, fees, findFund, formatDate, formatTer, funds, performanceAsOf } from "@/lib/data";
+import { compare, DEFAULT_INPUT, floorForClaim, formatCzk, roundForDisplay } from "@/lib/calc";
+import { bankCost, bankFund, entryFeeLabel, etfCost, fees, findFund, formatDate, formatTer, funds, performanceAsOf } from "@/lib/data";
 import { Brand } from "./Brand";
 import { CtaLink } from "./CtaLink";
 
@@ -27,7 +27,7 @@ export function HeroFees() {
             Kolik vám za 20 let sní poplatky fondu?
           </h1>
           <p className="mt-3 text-lg leading-snug text-ink-soft">
-            Stejný akciový trh, jiné náklady. Podívejte se na rozdíl mezi bankovním fondem a ETF – bez registrace.
+            Globální ETF místo fondu na akcie USA a Evropy. Podívejte se, kolik udělají rozdíl samotné náklady – bez registrace.
           </p>
         </div>
 
@@ -36,14 +36,14 @@ export function HeroFees() {
             Modelový příklad: {formatCzk(DEFAULT_INPUT.initial)} na začátek + {formatCzk(DEFAULT_INPUT.monthly)} měsíčně, {DEFAULT_INPUT.years} let
           </p>
           <p className="tabular mt-2 font-display text-[2.6rem] font-extrabold leading-none text-gold sm:text-6xl">
-            {formatCzk(roundForDisplay(r.difference))}
+            přes {formatCzk(floorForClaim(r.difference))}
           </p>
-          <p className="mt-1 text-sm text-paper/80">navíc by vám zůstalo v ETF*</p>
+          <p className="mt-1 text-sm text-paper/80">navíc by vám zůstalo v globálním ETF* (v modelu {formatCzk(roundForDisplay(r.difference))})</p>
 
           <div className="mt-4 grid gap-2.5 text-sm" aria-hidden>
             <div>
               <div className="flex justify-between">
-                <span>ETF {fund.ucits.ticker}</span>
+                <span>Globální ETF {fund.ucits.ticker}</span>
                 <span className="tabular font-semibold">{formatCzk(roundForDisplay(r.etf))}</span>
               </div>
               <div className="mt-1 h-3 rounded-full bg-paper/15">
@@ -52,7 +52,7 @@ export function HeroFees() {
             </div>
             <div>
               <div className="flex justify-between">
-                <span>Bankovní akciový fond</span>
+                <span>Bankovní fond na akcie USA a Evropy</span>
                 <span className="tabular font-semibold">{formatCzk(roundForDisplay(r.bank))}</span>
               </div>
               <div className="mt-1 h-3 rounded-full bg-paper/15">
@@ -65,7 +65,7 @@ export function HeroFees() {
             Spočítat s mými čísly
           </CtaLink>
           <p className="mt-3 text-[11px] leading-snug text-paper/70">
-            *Výnos {fees.assumptions.grossReturn} % ročně před náklady pro obě varianty. Bankovní fond: náklady dle KID {bankFund.name} ({formatDate(bankFund.kidDate)}),
+            *Výnos {fees.assumptions.grossReturn} % ročně před náklady pro obě varianty. Bankovní fond {bankFund.name}: vstup {entryFeeLabel} ({formatDate(bankFund.kidDate)}), průběžně {bankFund.ongoing.toLocaleString("cs-CZ")} % ročně,
             ETF: TER {formatTer(fund.ucits.ter)} + {fees.etfSide.brokerCostPerDeposit.toLocaleString("cs-CZ")} % z vkladu. Nejde o investiční doporučení.
           </p>
         </div>

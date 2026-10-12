@@ -42,7 +42,7 @@ Dvě varianty podle reklamy (message match). Přepíná je `src/proxy.ts` podle 
 
 | # | Varianta A – „poplatky“ | Varianta B – „srovnání“ | Proč tady |
 |---|---|---|---|
-| 1 | **Hero:** „Kolik vám za 20 let sní poplatky fondu?“ + modelový rozdíl ≈ 505 000 Kč, pruhy, CTA | **Hero:** „VOO, SPY, nebo VT? Tohle z Česka opravdu koupíte.“ + 3 dvojice tickerů s TER, CTA | Navazuje doslova na slib reklamy; odpověď je nad ohybem, hodnota je zřejmá před formulářem. |
+| 1 | **Hero:** „Kolik vám za 20 let sní poplatky fondu?“ + „přes 400 000 Kč“ jako v reklamě A (modelově 489 000 Kč, globální ETF VWCE vs. fond na akcie USA a Evropy), pruhy, CTA | **Hero:** „VOO, SPY, nebo VT? Tohle z Česka opravdu koupíte.“ + 3 dvojice tickerů s TER, CTA | Navazuje doslova na slib reklamy; odpověď je nad ohybem, hodnota je zřejmá před formulářem. |
 | 2 | **Kalkulačka** + formulář pod výsledkem | **Proč VOO z Česka nekoupíte** (KID/PRIIPs ve 3 krocích) | A: návštěvník chce „svoje číslo“. B: překvapivá informace z reklamy potřebuje vysvětlení, jinak nevěří. |
 | 3 | **Proč VOO z Česka nekoupíte** | **Srovnání 5 ETF ↔ UCITS** s CTA na každé kartě | A: druhá vrstva hodnoty pro ty, které čísla nezaujala. B: jádro slibu reklamy. |
 | 4 | **Srovnání 5 ETF ↔ UCITS** | **Kalkulačka** + formulář | A: vstup ke kontaktu přes konkrétní fond. B: po výběru ETF si spočítá, kolik ušetří. |
@@ -57,8 +57,8 @@ Po odeslání se mezi sekce 4 a 5 vloží **osobní přehled** a stránka na ně
 Všechna čísla načítá skript `npm run data` (`scripts/fetch-data.mjs`) ze **surových dat emitentů** (HTML, JSON API, PDF factsheety a KID) – ne ze sumarizací. Důvod: v kroku ověřování automatický sumarizátor posunul sloupce výkonnosti u SPY; chyba se odhalila porovnáním s VOO (stejný index). Výstup:
 
 - `data/etf.json` – 5 ETF z NYSE Arca (SPY, IVV, VOO, VT, VWO): burza (adresář Nasdaq Trader), TER, aktiva, výkonnost NAV k 30. 9. 2026, UCITS ekvivalent (SPYL, CSPX, VUAA, VWCE, VFEA) s TER, ISIN a odkazem na justETF. Každá hodnota má URL zdroje, datum a poznámku.
-- `data/fees.json` – bankovní fond z KID, předpoklady výpočtu.
-- `data/raw/evidence.json` – důkazní výňatky ze zdrojů (34 položek).
+- `data/fees.json` – bankovní fond z KID (náklady, cíl fondu, referenční hodnota, zajištění měny), předpoklady výpočtu, výchozí ETF (VT).
+- `data/raw/evidence.json` – důkazní výňatky ze zdrojů (37 položek).
 
 Testy (`npm test`) hlídají výpočet i to, že čísla v reklamách odpovídají datům.
 
@@ -67,7 +67,7 @@ Testy (`npm test`) hlídají výpočet i to, že čísla v reklamách odpovídaj
 | Rozhodnutí | Důvod |
 |---|---|
 | **Konkrétní brokery neuvádíme.** Text „u brokerů, kteří nabízejí UCITS ETF“ + u každého UCITS ETF odkaz na justETF. | Dostupnost konkrétních fondů u konkrétních brokerů se nepodařilo ověřit z primárních zdrojů. |
-| **Srovnávací bankovní fond: ČSOB Akciový zodpovědný** (KID ze dne 1. 6. 2026; vstup max. 3 %, průběžné náklady 2,65 % ročně). | Preferovaný Top Stocks (Erste/ČS) nemá veřejně dohledatelný KID z roku 2026 (nalezený dokument z 2026 je factsheet, KID je z 22. 5. 2023). Transakční náklady (0,42 %) nezapočítáváme – konzervativně. |
+| **Srovnávací bankovní fond: ČSOB Akciový zodpovědný** (KID ze dne 1. 6. 2026; vstup max. 3 % dle KID, průběžné náklady 2,65 % ročně). Výchozí ETF pro srovnání je **VT → VWCE** (FTSE All-World). | Preferovaný Top Stocks (Erste/ČS) nemá veřejně dohledatelný KID z roku 2026 (nalezený dokument z 2026 je factsheet, KID je z 22. 5. 2023). Transakční náklady (0,42 %) nezapočítáváme – konzervativně. Podle KID fond investuje „na světových trzích, a to zejména na trzích USA a Evropy“, referenční hodnota je 65 % MSCI USA + 35 % MSCI Europe. Nejbližší z našich ETF je proto globální VWCE, ne S&P 500. VWCE je ale širší (i Japonsko, další Asie, rozvíjející se trhy) a fond měnové riziko většinou zajišťuje, ETF ne, takže srovnání ukazuje vliv nákladů, ne stejné portfolio. Říká to i poznámka pod kalkulačkou. |
 | **Modelový výnos 6 % p. a.** pro obě varianty, náklady brokera 0,5 % z vkladu (předpoklad). | Rozdíl tak ukazuje jen vliv nákladů; předpoklady jsou pod grafem, v hero, v PDF i v reklamě. |
 | **Lead magnet jako „Osobní přehled“** – modelový výpočet a přehled možností. | Konkrétní doporučení nákupu by se blížilo investičnímu poradenství, na které TrustOne nemá oprávnění. |
 | **Next.js se statickými stránkami + jedna serverová funkce `/api/lead`.** | API klíč k Brevo nesmí být v prohlížeči; čistý statický export by serverovou funkci neuměl. |

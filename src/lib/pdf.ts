@@ -2,7 +2,7 @@ import fontkit from "@pdf-lib/fontkit";
 import { PDFDocument, rgb, type PDFFont, type PDFPage } from "pdf-lib";
 import { BUY_STEPS, TAX_RULES } from "@/content/overview";
 import { compare, formatCzk, roundForDisplay, type CalcInput } from "./calc";
-import { bankCost, bankFund, etfCost, fees, findFund, formatDate, formatTer } from "./data";
+import { bankCost, bankFund, entryFeeLabel, etfCost, fees, findFund, formatDate, formatTer } from "./data";
 
 const INK = rgb(0.059, 0.165, 0.133);
 const SOFT = rgb(0.24, 0.32, 0.29);
@@ -172,7 +172,7 @@ export async function buildOverviewPdf(input: CalcInput, ticker: string, generat
   chart(p1, fonts, M, w.y - 170, A4.w - 2 * M, 160, r.points);
   w.y -= 210;
   w.text(
-    `Předpoklady: výnos ${fees.assumptions.grossReturn} % ročně před náklady pro obě varianty. Bankovní fond ${bankFund.name}: vstupní poplatek ${bankFund.entry.toLocaleString("cs-CZ")} % z každého vkladu, průběžné náklady ${bankFund.ongoing.toLocaleString("cs-CZ")} % ročně (KID ze dne ${formatDate(bankFund.kidDate)}; transakční náklady ${bankFund.transaction.toLocaleString("cs-CZ")} % nezapočteny). ETF: TER ${formatTer(fund.ucits.ter)} ročně, náklady brokera a konverze ${fees.etfSide.brokerCostPerDeposit.toLocaleString("cs-CZ")} % z vkladu (předpoklad). Daně a inflace nezohledněny.`,
+    `Předpoklady: výnos ${fees.assumptions.grossReturn} % ročně před náklady pro obě varianty. Bankovní fond ${bankFund.name}: vstupní poplatek ${entryFeeLabel} z každého vkladu, průběžné náklady ${bankFund.ongoing.toLocaleString("cs-CZ")} % ročně (KID ze dne ${formatDate(bankFund.kidDate)}; transakční náklady ${bankFund.transaction.toLocaleString("cs-CZ")} % nezapočteny). ETF: TER ${formatTer(fund.ucits.ter)} ročně, náklady brokera a konverze ${fees.etfSide.brokerCostPerDeposit.toLocaleString("cs-CZ")} % z vkladu (předpoklad). Daně a inflace nezohledněny.`,
     { size: 8.5, color: SOFT, gap: 16 },
   );
 

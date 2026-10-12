@@ -9,13 +9,13 @@ Obrázky se generují z HTML šablon: `npm run ads` (výstup `reklama-a-poplatky
 
 | Pole v Meta | Text |
 |---|---|
-| Primární text | Kolik stojí poplatky fondu? Modelový příklad: 100 000 Kč na začátek a 3 000 Kč měsíčně po dobu 20 let. Rozdíl mezi bankovním akciovým fondem a ETF na stejný trh vychází zhruba na 500 000 Kč.* Spočítejte si to s vlastními čísly – zdarma a bez registrace.<br><br>*Výnos 6 % ročně před náklady pro obě varianty, náklady dle KID fondu a TER ETF. Nejde o investiční doporučení. |
+| Primární text | Kolik stojí poplatky fondu? Modelový příklad: 100 000 Kč na začátek a 3 000 Kč měsíčně po dobu 20 let. Globální akciový ETF místo bankovního fondu na akcie USA a Evropy: rozdíl vychází přes 400 000 Kč.* Spočítejte si to s vlastními čísly – zdarma a bez registrace.<br><br>*Výnos 6 % ročně před náklady pro obě varianty, náklady dle KID fondu (vstup max. 3 % dle KID) a TER ETF. Srovnání ukazuje vliv nákladů, ne stejné portfolio. Nejde o investiční doporučení. |
 | Nadpis | Spočítejte si, kolik stojí poplatky |
 | Popis | Kalkulačka s daty z KID a od emitentů |
 | Tlačítko | Zjistit více |
 | URL | `https://etf-landing-page-three.vercel.app/?utm_source=meta&utm_medium=paid_social&utm_campaign=etf_leadgen&utm_content=a_fees` |
 
-**Navazující první obrazovka:** nadpis „Kolik vám za 20 let sní poplatky fondu?“ a stejný modelový příklad (≈ 505 000 Kč, zaokrouhleno v reklamě dolů na ≈ 500 000 Kč) s předpoklady pod číslem.
+**Navazující první obrazovka:** nadpis „Kolik vám za 20 let sní poplatky fondu?“ a stejný modelový příklad: velké číslo „přes 400 000 Kč“ jako v reklamě, pod ním přesná modelová hodnota (489 000 Kč) a předpoklady. Obojí se počítá z dat (`floorForClaim` a `roundForDisplay` v `src/lib/calc.ts`). „Přes 400 000 Kč“ platí i bez vstupního poplatku (453 000 Kč).
 
 ## Varianta B – srovnání (`utm_content=b_compare`)
 

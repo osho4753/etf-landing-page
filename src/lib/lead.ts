@@ -1,4 +1,5 @@
 import { sanitize } from "./calc";
+import { fees } from "./data";
 
 export type LeadPayload = {
   email: string;
@@ -23,7 +24,7 @@ export function parseLead(raw: Record<string, unknown>): { ok: true; lead: LeadP
   const consent = raw.consent === true || raw.consent === "on";
   if (!consent) return { ok: false, error: "consent_missing" };
   const input = sanitize({ initial: Number(raw.initial), monthly: Number(raw.monthly), years: Number(raw.years) });
-  const etf = TICKERS.includes(String(raw.etf)) ? String(raw.etf) : "IVV";
+  const etf = TICKERS.includes(String(raw.etf)) ? String(raw.etf) : fees.defaultEtf;
   return {
     ok: true,
     lead: {

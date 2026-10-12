@@ -9,6 +9,9 @@
     "ongoing": 2.65,
     "transaction": 0.42,
     "recommendedHoldingYears": 8,
+    "markets": "světových trzích, a to zejména na trzích USA a Evropy",
+    "benchmark": "65 % MSCI USA + 35 % MSCI Europe",
+    "currencyMostlyHedged": true,
     "kidDate": "2026-06-01",
     "pdfSha256": "0e932a70fcc176617038b8cc38f560ccd7ec8f3d0a2c664b776f641ec90efcfb",
     "source": {
@@ -26,5 +29,5 @@
     "grossReturn": 6,
     "note": "Modelový roční výnos před náklady 6 % p. a. – stejný pro obě varianty, aby rozdíl ukazoval jen vliv nákladů. Nejde o predikci ani slib výnosu."
   },
-  "defaultEtf": "IVV"
+  "defaultEtf": "VT"
 }
