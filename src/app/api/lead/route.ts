@@ -1,5 +1,14 @@
 import { saveContact, sendOverviewEmail } from "@/lib/brevo";
 import { overviewPath, parseLead, submittedPath } from "@/lib/lead";
+import { createCooldown, createRateLimiter } from "@/lib/rate-limit";
+
+const perIp = createRateLimiter(5, 60 * 60 * 1000);
+const emailSent = createCooldown(24 * 60 * 60 * 1000);
+
+function clientIp(request: Request) {
+  const forwarded = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
+  return forwarded || request.headers.get("x-real-ip") || "unknown";
+}
 
 async function readBody(request: Request): Promise<{ data: Record<string, unknown>; isForm: boolean }> {
   const type = request.headers.get("content-type") ?? "";
@@ -23,6 +32,12 @@ export async function POST(request: Request) {
   if (!parsed.ok) {
     if (body.isForm) return Response.redirect(`${origin}/?chyba=${parsed.error}#formular`, 303);
     return Response.json({ ok: false, error: parsed.error }, { status: 422 });
+  }
+
+  if (!perIp.hit(clientIp(request))) {
+    console.warn("lead_rate_limited");
+    if (body.isForm) return Response.redirect(`${origin}/?chyba=rate_limited#formular`, 303);
+    return Response.json({ ok: false, error: "rate_limited" }, { status: 429 });
   }
 
   const lead = parsed.lead;
@@ -49,10 +64,11 @@ export async function POST(request: Request) {
     console.error("lead_backup", JSON.stringify({ ...lead, honeypot: undefined, at: new Date().toISOString() }));
   }
 
-  if (sender) {
+  if (sender && emailSent.take(lead.email)) {
     try {
       await sendOverviewEmail(lead, `${origin}${path}`, key, sender);
     } catch (err) {
+      emailSent.release(lead.email);
       console.error("lead_email_failed", String(err));
     }
   }

@@ -1,5 +1,5 @@
-import { sanitize } from "./calc";
-import { fees } from "./data";
+import { compare, sanitize } from "./calc";
+import { bankCost, etfCost, fees } from "./data";
 
 export type LeadPayload = {
   email: string;
@@ -38,7 +38,7 @@ export function parseLead(raw: Record<string, unknown>): { ok: true; lead: LeadP
       initial: input.initial,
       monthly: input.monthly,
       years: input.years,
-      difference: Math.round(Number(raw.difference) || 0),
+      difference: compare(input, bankCost, etfCost(etf)).difference,
     },
   };
 }

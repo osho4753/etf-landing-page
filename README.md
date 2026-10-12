@@ -185,6 +185,10 @@ V Brevo je potřeba vytvořit seznam a atributy kontaktu uvedené v kapitole 5 a
 
 „Nejde o investiční doporučení“ v hero, pod kalkulačkou, v přehledu, PDF, reklamách i patičce; upozornění, že minulá ani modelová výkonnost nezaručuje budoucí výnosy; stránka [Ochrana osobních údajů](src/app/ochrana-udaju/page.tsx); zdroje dat s datem u tabulky, grafu i v samostatné sekci. Právní posouzení skutečným právníkem je mimo rozsah tohoto testu.
 
+**Ochrana `/api/lead`:** modelový rozdíl (atribut `ROZDIL` v Brevo, e-mail) počítá server ze vstupů přes `compare()`, hodnotu poslanou prohlížečem ignoruje. Z jedné IP projde nejvýš 5 odeslání za hodinu (další dostane 429). Na stejný e-mail se přehled znovu nepošle dřív než za 24 hodin, kontakt v Brevo se jen aktualizuje. Oba limity jsou „best effort“ v paměti serverové funkce (`src/lib/rate-limit.ts`, testy v `src/lib/rate-limit.test.ts` a `src/app/api/lead/route.test.ts`).
+
+**Před ostrým provozem: double opt-in v Brevo a rate limit na úrovni infrastruktury (paměť serverless funkce není spolehlivá).**
+
 ## 12. Chyby a zjištění při testování
 
 | Zjištění | Jak se přišlo | Oprava |
