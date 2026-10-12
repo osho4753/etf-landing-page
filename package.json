@@ -9,7 +9,8 @@
     "lint": "eslint",
     "test": "vitest run",
     "data": "node scripts/fetch-data.mjs",
-    "e2e": "node scripts/e2e-flow.mjs"
+    "e2e": "node scripts/e2e-flow.mjs",
+    "ads": "node scripts/render-ads.mjs"
   },
   "dependencies": {
     "@pdf-lib/fontkit": "^1.1.1",
