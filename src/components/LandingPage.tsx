@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { Analytics } from "./Analytics";
 import { Calculator } from "./Calculator";
 import { Compare } from "./Compare";
@@ -9,16 +8,7 @@ import { Faq, Footer, KidExplainer, PlanPreview, SectionTitle, Sources } from ".
 import { StickyCta } from "./StickyCta";
 import { ThankYou } from "./ThankYou";
 
-function Band({ id, tone = "paper", children }: { id: string; tone?: "paper" | "white" | "photo"; children: React.ReactNode }) {
-  if (tone === "photo") {
-    return (
-      <section id={id} aria-labelledby={`${id}-title`} className="relative isolate scroll-mt-4 overflow-hidden bg-ink text-paper">
-        <Image src="/img/back.jpg" alt="" fill sizes="50vw" loading="lazy" className="-z-20 object-cover" />
-        <div aria-hidden className="absolute inset-0 -z-10 bg-ink/88" />
-        <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6 sm:py-16">{children}</div>
-      </section>
-    );
-  }
+function Band({ id, tone = "paper", children }: { id: string; tone?: "paper" | "white"; children: React.ReactNode }) {
   return (
     <section id={id} aria-labelledby={`${id}-title`} className={`scroll-mt-4 ${tone === "white" ? "bg-card/60" : ""}`}>
       <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6 sm:py-16">{children}</div>
@@ -86,8 +76,8 @@ export function LandingPage({ variant }: { variant: Variant }) {
           />
           <PlanPreview />
         </Band>
-        <Band id="faq" tone="photo">
-          <SectionTitle id="faq-title" eyebrow="Časté otázky" title="Než se rozhodnete" onDark />
+        <Band id="faq" tone="white">
+          <SectionTitle id="faq-title" eyebrow="Časté otázky" title="Než se rozhodnete" />
           <Faq />
         </Band>
         <Band id="zdroje">

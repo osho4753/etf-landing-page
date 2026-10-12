@@ -3,14 +3,14 @@ import { CtaLink } from "./CtaLink";
 import { LeadForm } from "./LeadForm";
 import { TAX_RULES } from "@/content/overview";
 
-export function SectionTitle({ eyebrow, title, lead, id, onDark = false }: { eyebrow: string; title: string; lead?: string; id: string; onDark?: boolean }) {
+export function SectionTitle({ eyebrow, title, lead, id }: { eyebrow: string; title: string; lead?: string; id: string }) {
   return (
     <header data-reveal className="mb-6 max-w-2xl">
-      <p className={`text-sm font-semibold uppercase tracking-wider ${onDark ? "text-gold" : "text-mint-ink"}`}>{eyebrow}</p>
+      <p className="text-sm font-semibold uppercase tracking-wider text-mint-ink">{eyebrow}</p>
       <h2 id={id} className="mt-1 font-display text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl">
         {title}
       </h2>
-      {lead && <p className={`mt-2 text-lg leading-snug ${onDark ? "text-paper/85" : "text-ink-soft"}`}>{lead}</p>}
+      {lead && <p className="mt-2 text-lg leading-snug text-ink-soft">{lead}</p>}
     </header>
   );
 }
@@ -108,7 +108,7 @@ export function Faq() {
   return (
     <div className="grid gap-2">
       {items.map((i) => (
-        <details key={i.q} data-reveal className="group rounded-2xl bg-card p-4 text-ink open:pb-5">
+        <details key={i.q} data-reveal className="group rounded-2xl bg-card p-4 open:pb-5">
           <summary className="flex cursor-pointer list-none items-center justify-between gap-3 font-semibold">
             {i.q}
             <span aria-hidden className="text-xl text-pine transition group-open:rotate-45">
